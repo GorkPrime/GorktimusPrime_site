@@ -213,6 +213,117 @@
       pointer-events: none;
     }
 
+    .screen::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(rgba(126,249,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(126,249,255,0.03) 1px, transparent 1px);
+      background-size: 100% 24px, 24px 100%;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .live-dot {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #8dffd5;
+      box-shadow: 0 0 0 0 rgba(141,255,213,0.7);
+      animation: pulse 1.8s infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1em;
+      background: #8fd6ff;
+      margin-left: 6px;
+      vertical-align: -2px;
+      animation: blink 1s steps(1) infinite;
+    }
+
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .stat-card {
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.02);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.16);
+    }
+
+    .stat-card small {
+      display: block;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+      font-size: 0.76rem;
+    }
+
+    .stat-card strong {
+      font-size: 1.8rem;
+      letter-spacing: -0.04em;
+    }
+
+    .stat-card span {
+      display: block;
+      color: var(--muted);
+      margin-top: 6px;
+      font-size: 0.92rem;
+    }
+
+    .live-feed {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .feed-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(126,249,255,0.10);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .feed-left strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.98rem;
+    }
+
+    .feed-left span,
+    .feed-right span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .feed-right {
+      text-align: right;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(141,255,213,0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(141,255,213,0); }
+      100% { box-shadow: 0 0 0 0 rgba(141,255,213,0); }
+    }
+
     .mono {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 0.92rem;
@@ -349,7 +460,10 @@
     @media (max-width: 980px) {
       .hero,
       .grid,
-      .two-col { grid-template-columns: 1fr; }
+      .two-col,
+      .stats-strip { grid-template-columns: 1fr; }
+      .hero { padding-top: 52px; }
+    }
       .hero { padding-top: 52px; }
     }
 
@@ -386,23 +500,24 @@
         <div class="eyebrow">AI-powered meme intelligence ecosystem</div>
         <h1>Detect behavior.<br/>Read momentum.<br/>See signals early.</h1>
         <p class="subtitle">
-          Gorktimus Prime is building an intelligence layer for the meme-coin economy. The first interface is <strong>GIT</strong> — the Gorktimus Intelligence Terminal — a Telegram-based system for early launch detection, risk scoring, rug pattern analysis, wallet behavior, and hype intelligence.
+          Gorktimus Prime is building an intelligence layer for the meme-coin economy. The first interface is the Gorktimus Intelligence Terminal — a Telegram-based system for early launch detection, risk scoring, rug pattern analysis, wallet behavior, and hype intelligence.
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#terminal">View GIT Preview</a>
+          <a class="btn btn-primary" href="#terminal">Launch Intelligence Terminal</a>
           <a class="btn btn-secondary" href="https://x.com/gorktimusPrime" target="_blank" rel="noreferrer">GitHub</a>
         </div>
       </div>
 
       <div class="terminal-card">
+        <img src="gorktimus.png" alt="Gorktimus Prime" style="width:100%;border-radius:18px;border:1px solid rgba(126,249,255,0.15);margin-bottom:16px;" />
         <div class="terminal-head">
           <div class="dot"></div>
           <div class="dot"></div>
           <div class="dot"></div>
         </div>
-        <div class="screen mono" aria-label="GIT terminal preview">
-          <div><span class="muted">GORKTIMUS INTELLIGENCE TERMINAL // NEW COIN DETECTED</span></div>
-          <div>Token: <span class="hot">$CUPOTEA</span></div>
+        <div class="screen mono" aria-label="Gorktimus Intelligence Terminal preview">
+          <div><span class="live-dot"></span><span class="muted">GORKTIMUS INTELLIGENCE TERMINAL // LIVE SIGNAL</span><span class="cursor"></span></div>
+          <div>Token: <span class="hot">$GORKX</span></div>
           <div>Age: <span class="good">11 min</span></div>
           <div>Liquidity: <span class="good">$24,800</span></div>
           <div>Liquidity Growth: <span class="good">+41%</span></div>
@@ -412,7 +527,7 @@
           <div>Hype Score: <span class="hot">81 / 100</span></div>
           <div>Signal: <span class="good">Momentum rising faster than crowd awareness</span></div>
           <br />
-          <div><span class="muted">What GIT does:</span></div>
+          <div><span class="muted">What the terminal does:</span></div>
           <div>- tracks token behavior, not just price</div>
           <div>- scores risk when coins are pulled or watched</div>
           <div>- detects rug patterns and suspicious liquidity shifts</div>
@@ -421,10 +536,66 @@
       </div>
     </section>
 
-    <section class="wrap section" id="terminal">
-      <h2 class="section-title">The first interface: GIT</h2>
+    <section class="wrap section" id="live-feed">
+      <h2 class="section-title">Live scanner feed</h2>
       <p class="section-copy">
-        GIT is the first product inside the Gorktimus Prime ecosystem. It is designed to surface early signals through a clean Telegram terminal experience while laying the foundation for future dashboards, APIs, and deeper intelligence tools.
+        A real-time style preview of how the intelligence layer can surface signals, behavior changes, and early momentum from the terminal experience.
+      </p>
+      <div class="live-feed">
+        <div class="feed-item">
+          <div class="feed-left">
+            <strong>New launch signal // $GORKX</strong>
+            <span>Age 11 min • Liquidity building • Hype rising</span>
+          </div>
+          <div class="feed-right">
+            <strong class="good">Risk 59</strong>
+            <span>Rug risk: Moderate</span>
+          </div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-left">
+            <strong>Watchlist shift // $PRIME</strong>
+            <span>Liquidity +22% • buys accelerating • structure steady</span>
+          </div>
+          <div class="feed-right">
+            <strong class="hot">Hype 77</strong>
+            <span>Momentum: Organic</span>
+          </div>
+        </div>
+        <div class="feed-item">
+          <div class="feed-left">
+            <strong>Rug warning // $VOID</strong>
+            <span>Liquidity weakening • sells rising • concentration worsening</span>
+          </div>
+          <div class="feed-right">
+            <strong class="warn">Alert</strong>
+            <span>Behavior changed fast</span>
+          </div>
+        </div>
+      </div>
+      <div class="stats-strip">
+        <div class="stat-card">
+          <small>Signals surfaced</small>
+          <strong>24/7</strong>
+          <span>Built for continuous intelligence flow</span>
+        </div>
+        <div class="stat-card">
+          <small>Core focus</small>
+          <strong>Behavior</strong>
+          <span>Not just charts, not just hype</span>
+        </div>
+        <div class="stat-card">
+          <small>First interface</small>
+          <strong>Telegram</strong>
+          <span>Fast access to the intelligence terminal</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section" id="terminal">
+      <h2 class="section-title">The first interface: Gorktimus Intelligence Terminal</h2>
+      <p class="section-copy">
+        The Gorktimus Intelligence Terminal is the first product inside the Gorktimus Prime ecosystem. It is designed to surface early signals through a clean Telegram terminal experience while laying the foundation for future dashboards, APIs, and deeper intelligence tools.
       </p>
       <div class="two-col">
         <div class="card">
@@ -438,9 +609,9 @@
           </div>
         </div>
         <div class="card">
-          <h3>Current product direction</h3>
+          <h3>Current intelligence direction</h3>
           <div class="metric-list">
-            <div class="metric"><span>Interface</span><strong>Telegram terminal</strong></div>
+            <div class="metric"><span>Interface</span><strong>Telegram intelligence terminal</strong></div>
             <div class="metric"><span>Core feed</span><strong>DexScreener + intelligence layer</strong></div>
             <div class="metric"><span>Focus</span><strong>Behavior over hype</strong></div>
             <div class="metric"><span>Scans</span><strong>New coins, trend shifts, watchlist changes</strong></div>
@@ -482,12 +653,12 @@
     <section class="wrap section" id="roadmap">
       <h2 class="section-title">Roadmap</h2>
       <p class="section-copy">
-        Gorktimus Prime starts with a terminal because speed matters. The long-term vision is a broader intelligence ecosystem with multiple interfaces built on the same core logic. This is for the trenches
+        Gorktimus Prime starts with the Gorktimus Intelligence Terminal because speed matters. The long-term vision is a broader intelligence ecosystem with multiple interfaces built on the same core logic.
       </p>
       <div class="roadmap">
         <div class="phase">
           <small>Phase 1</small>
-          <h3>GIT Alpha</h3>
+          <h3>Intelligence Terminal Alpha</h3>
           <p>Telegram-based intelligence terminal with coin lookup, watchlist alerts, risk scoring, new coin scans, and foundational rug detection.</p>
         </div>
         <div class="phase">
@@ -507,7 +678,7 @@
   <footer class="wrap footer">
     <div class="footer-bar">
       <div>Gorktimus Prime // AI-powered meme intelligence ecosystem</div>
-      <div>Gorktimus Intelligence Terminal is the first interface.</div>
+      <div>The Gorktimus Intelligence Terminal is the first interface.</div>
     </div>
   </footer>
 </body>
