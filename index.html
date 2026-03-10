@@ -16,6 +16,10 @@
       --glow: #4fb3ff;
       --glow2: #7ef9ff;
       --accent: #78a6ff;
+      --good: #8dffd5;
+      --warn: #ffd890;
+      --hot: #8fd6ff;
+      --danger: #ff8f9d;
     }
 
     * { box-sizing: border-box; }
@@ -167,7 +171,11 @@
     }
 
     .terminal-card,
-    .card {
+    .card,
+    .scan-box,
+    .story-card,
+    .cta-card,
+    .operator-card {
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: 24px;
@@ -243,6 +251,68 @@
       margin-left: 6px;
       vertical-align: -2px;
       animation: blink 1s steps(1) infinite;
+    }
+
+    .hero-signal-bar {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(126,249,255,0.14);
+      background: rgba(255,255,255,0.03);
+      display: grid;
+      gap: 8px;
+    }
+
+    .hero-signal-line {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      color: #cbe8ff;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .operator-card {
+      margin-top: 18px;
+      padding: 18px;
+    }
+
+    .operator-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .operator-top strong {
+      font-size: 1.05rem;
+    }
+
+    .operator-top span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .operator-bar {
+      width: 100%;
+      height: 12px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(126,249,255,0.12);
+    }
+
+    .operator-fill {
+      width: 17.4%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--glow), var(--glow2));
+      box-shadow: 0 0 18px rgba(79,179,255,0.25);
+    }
+
+    .operator-note {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.92rem;
     }
 
     .stats-strip {
@@ -336,6 +406,11 @@
     .mono .warn { color: #ffd890; }
     .mono .hot { color: #8fd6ff; }
 
+    .good { color: var(--good); }
+    .warn { color: var(--warn); }
+    .hot { color: var(--hot); }
+    .danger { color: var(--danger); }
+
     .section {
       padding: 38px 0;
     }
@@ -412,6 +487,123 @@
     .metric span:first-child { color: var(--muted); }
     .metric strong { font-size: 0.98rem; }
 
+    .story-card {
+      padding: 24px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .story-block {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(126,249,255,0.10);
+    }
+
+    .story-block small {
+      display: block;
+      color: var(--glow2);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .story-block strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .story-block p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 0.95rem;
+    }
+
+    .scan-box {
+      padding: 24px;
+    }
+
+    .scan-shell {
+      border-radius: 20px;
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(5,14,26,0.96), rgba(5,13,24,0.84));
+      border: 1px solid rgba(126,249,255,0.10);
+    }
+
+    .scan-form {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .scan-input {
+      flex: 1 1 520px;
+      min-width: 0;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(126,249,255,0.14);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      outline: none;
+      font-size: 0.96rem;
+    }
+
+    .scan-input::placeholder { color: #7ea7cc; }
+
+    .scan-btn {
+      padding: 14px 18px;
+      border-radius: 14px;
+      border: 1px solid rgba(126,249,255,0.14);
+      background: linear-gradient(135deg, var(--glow2), var(--glow));
+      color: #02101d;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .scan-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .scan-stat {
+      padding: 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(126,249,255,0.08);
+    }
+
+    .scan-stat small {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.75rem;
+    }
+
+    .scan-stat strong {
+      font-size: 1.18rem;
+      letter-spacing: -0.03em;
+    }
+
+    .scan-note {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+
     .roadmap {
       display: grid;
       gap: 14px;
@@ -442,6 +634,29 @@
       line-height: 1.65;
     }
 
+    .cta-card {
+      padding: 28px;
+      display: grid;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .cta-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 720px;
+      margin-inline: auto;
+    }
+
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
     .footer {
       padding: 40px 0 60px;
       color: var(--muted);
@@ -461,9 +676,12 @@
       .hero,
       .grid,
       .two-col,
-      .stats-strip { grid-template-columns: 1fr; }
-      .hero { padding-top: 52px; }
-    }
+      .stats-strip,
+      .scan-grid,
+      .story-grid {
+        grid-template-columns: 1fr;
+      }
+
       .hero { padding-top: 52px; }
     }
 
@@ -472,6 +690,7 @@
       .nav-links { gap: 12px; }
       .btn { width: 100%; }
       .hero-actions { width: 100%; }
+      .scan-btn { width: 100%; }
     }
   </style>
 </head>
@@ -483,12 +702,12 @@
         <span>Gorktimus Prime</span>
       </div>
       <nav class="nav-links">
-        <a href="https://t.me/GorktimusPrime_bot" target="_blank">Terminal</a>
-        <a href="https://t.co/HlZm1eYMNj" target="_blank">Telegram</a>
-        <a href="https://x.com/gorktimusPrime" target="_blank">X</a>
+        <a href="https://t.me/GorktimusPrime_bot" target="_blank" rel="noreferrer">Terminal</a>
+        <a href="https://t.co/HlZm1eYMNj" target="_blank" rel="noreferrer">Telegram</a>
+        <a href="https://x.com/gorktimusPrime" target="_blank" rel="noreferrer">X</a>
         <a href="#vision">Vision</a>
-        <a href="https://t.me/GorktimusPrime_bot" target="_blank">Terminal</a>
         <a href="#features">Features</a>
+        <a href="#scanner">Scanner</a>
         <a href="#roadmap">Roadmap</a>
       </nav>
     </div>
@@ -502,9 +721,29 @@
         <p class="subtitle">
           Gorktimus Prime is building an intelligence layer for the meme-coin economy. The first interface is the Gorktimus Intelligence Terminal — a Telegram-based system for early launch detection, risk scoring, rug pattern analysis, wallet behavior, and hype intelligence.
         </p>
+
+        <div class="hero-signal-bar">
+          <div class="hero-signal-line"><span class="live-dot"></span>Scanning liquidity pools<span class="cursor"></span></div>
+          <div class="hero-signal-line">Analyzing smart-wallet behavior...</div>
+          <div class="hero-signal-line">Detecting early launch momentum...</div>
+        </div>
+
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#terminal">Launch Intelligence Terminal</a>
-          <a class="btn btn-secondary" href="https://x.com/gorktimusPrime" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn btn-primary" href="https://t.me/GorktimusPrime_bot" target="_blank" rel="noreferrer">Launch Intelligence Terminal</a>
+          <a class="btn btn-secondary" href="https://x.com/gorktimusPrime" target="_blank" rel="noreferrer">Follow on X</a>
+        </div>
+
+        <div class="operator-card">
+          <div class="operator-top">
+            <strong>Early Operator Access</strong>
+            <span>87 / 500 spots activated</span>
+          </div>
+          <div class="operator-bar">
+            <div class="operator-fill"></div>
+          </div>
+          <div class="operator-note">
+            Early access creates scarcity and makes the project feel alive. This section is pure conversion psychology.
+          </div>
         </div>
       </div>
 
@@ -621,6 +860,32 @@
       </div>
     </section>
 
+    <section class="wrap section" id="why">
+      <h2 class="section-title">Why Gorktimus exists</h2>
+      <p class="section-copy">
+        Most meme traders are reacting to movement after the move already started. Gorktimus Prime is being built to compress that delay and surface what matters earlier.
+      </p>
+      <div class="story-card">
+        <div class="story-grid">
+          <div class="story-block">
+            <small>Problem</small>
+            <strong>Crypto moves too fast</strong>
+            <p>New coins appear every minute, hype rotates instantly, and most people only notice what is already running.</p>
+          </div>
+          <div class="story-block">
+            <small>Gap</small>
+            <strong>Most tools are late</strong>
+            <p>Many trackers show price and volume, but miss behavior, distribution risk, launch quality, and suspicious structure shifts.</p>
+          </div>
+          <div class="story-block">
+            <small>Mission</small>
+            <strong>Intelligence before noise</strong>
+            <p>Gorktimus Prime is designed to detect patterns, pressure points, and momentum quality before the crowd fully understands what is happening.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="wrap section" id="features">
       <h2 class="section-title">Core intelligence layers</h2>
       <p class="section-copy">
@@ -650,6 +915,50 @@
       </div>
     </section>
 
+    <section class="wrap section" id="scanner">
+      <h2 class="section-title">Scan a token</h2>
+      <p class="section-copy">
+        This section is strategically important. Even as a mock preview, it makes the site feel like a real intelligence product instead of just a concept page.
+      </p>
+      <div class="scan-box">
+        <div class="scan-shell">
+          <div class="scan-form">
+            <input
+              class="scan-input"
+              type="text"
+              placeholder="Paste token ticker or contract address..."
+              value="2Ci4XBmr67JFoS5YPrE8hmJPN9QgkcUab7xd8Vpipump"
+              readonly
+            />
+            <button class="scan-btn" type="button">Run Scan</button>
+          </div>
+
+          <div class="scan-grid">
+            <div class="scan-stat">
+              <small>Liquidity</small>
+              <strong>$42,300</strong>
+            </div>
+            <div class="scan-stat">
+              <small>Market Cap</small>
+              <strong>$188,000</strong>
+            </div>
+            <div class="scan-stat">
+              <small>Risk Score</small>
+              <strong class="warn">61 / 100</strong>
+            </div>
+            <div class="scan-stat">
+              <small>Holder Concentration</small>
+              <strong class="warn">Moderate</strong>
+            </div>
+          </div>
+
+          <div class="scan-note">
+            Mock preview for the future web interface. The real vision is a scanner that can evaluate liquidity quality, launch behavior, hype strength, wallet concentration, and rug probability in one place.
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="wrap section" id="roadmap">
       <h2 class="section-title">Roadmap</h2>
       <p class="section-copy">
@@ -670,6 +979,20 @@
           <small>Phase 3</small>
           <h3>Platform Buildout</h3>
           <p>Dashboard, API access, richer analytics, contributor tools, and a broader AI-powered meme intelligence ecosystem.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section" id="join">
+      <div class="cta-card">
+        <h2 class="section-title">Join the early operators</h2>
+        <p>
+          Gorktimus Prime is being built for people who want signal before noise. The Telegram terminal is the first interface. The broader intelligence layer comes next.
+        </p>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href="https://t.co/HlZm1eYMNj" target="_blank" rel="noreferrer">Join Telegram</a>
+          <a class="btn btn-secondary" href="https://t.me/GorktimusPrime_bot" target="_blank" rel="noreferrer">Open Terminal</a>
+          <a class="btn btn-secondary" href="https://x.com/gorktimusPrime" target="_blank" rel="noreferrer">Follow on X</a>
         </div>
       </div>
     </section>
