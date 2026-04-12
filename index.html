@@ -1875,12 +1875,13 @@
     </p>
 
     <div class="contact-card">
+      <!-- Formspree: replace the action URL with your unique form endpoint
+           from formspree.io/forms after connecting GorktimusPrime@gmail.com -->
       <form
         class="contact-form"
         id="contactForm"
         action="https://formspree.io/f/GorktimusPrime@gmail.com"
         method="POST"
-        novalidate
       >
         <div class="contact-field">
           <label for="contact-email">Your Email <span aria-hidden="true">*</span></label>
@@ -1919,6 +1920,7 @@
         </div>
 
         <button class="contact-submit" type="submit">Send Message</button>
+        <p class="contact-error" id="contactError" role="alert" aria-live="assertive" style="display:none;color:var(--danger);font-size:0.93rem;margin:0;"></p>
       </form>
     </div>
   </section>
@@ -1941,9 +1943,10 @@
   </footer>
   <script>
     (function () {
-      var form  = document.getElementById('contactForm');
-      var modal = document.getElementById('thankYouModal');
+      var form     = document.getElementById('contactForm');
+      var modal    = document.getElementById('thankYouModal');
       var closeBtn = document.getElementById('modalClose');
+      var errorEl  = document.getElementById('contactError');
 
       function openModal() {
         modal.classList.add('is-open');
@@ -1955,13 +1958,19 @@
         form.reset();
       }
 
+      function showError(msg) {
+        errorEl.textContent = msg || 'Something went wrong. Please try again or email GorktimusPrime@gmail.com directly.';
+        errorEl.style.display = 'block';
+      }
+
+      function clearError() {
+        errorEl.textContent = '';
+        errorEl.style.display = 'none';
+      }
+
       form.addEventListener('submit', function (e) {
         e.preventDefault();
-
-        if (!form.checkValidity()) {
-          form.reportValidity();
-          return;
-        }
+        clearError();
 
         var data = new FormData(form);
 
@@ -1975,14 +1984,12 @@
             openModal();
           } else {
             return res.json().then(function (body) {
-              throw new Error(body.error || 'Submission failed');
+              showError(body.error || null);
             });
           }
         })
         .catch(function () {
-          /* Fallback: show modal even if the network call fails so the
-             demo experience is preserved while Formspree is not yet configured. */
-          openModal();
+          showError(null);
         });
       });
 
