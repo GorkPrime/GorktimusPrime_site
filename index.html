@@ -1959,7 +1959,7 @@
       }
 
       function showError(msg) {
-        errorEl.textContent = msg || 'Something went wrong. Please try again or email GorktimusPrime@gmail.com directly.';
+        errorEl.textContent = msg || 'Unable to send your message. Please check your connection and try again, or email GorktimusPrime@gmail.com directly.';
         errorEl.style.display = 'block';
       }
 
@@ -1983,9 +1983,14 @@
           if (res.ok) {
             openModal();
           } else {
-            return res.json().then(function (body) {
-              showError(body.error || null);
-            });
+            var ct = res.headers.get('Content-Type') || '';
+            if (ct.indexOf('application/json') !== -1) {
+              res.json().then(function (body) {
+                showError(body.error || null);
+              }).catch(function () { showError(null); });
+            } else {
+              showError(null);
+            }
           }
         })
         .catch(function () {
