@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gorktimus Prime</title>
+  <title>Gorktimus Intelligence Terminal</title>
   <meta
     name="description"
-    content="Gorktimus Prime is building an AI-powered intelligence layer for the meme-coin economy. The first interface is the Gorktimus Intelligence Terminal."
+    content="AI-powered defense layer for meme-coin traders. Scan tokens, detect traps, track launches, and read market behavior before the crowd reacts."
   />
   <style>
     :root {
@@ -456,6 +456,7 @@
       background: rgba(255,255,255,0.22);
     }
 
+    /* ── Terminal scan-line sweep animation ──────────────── */
     .screen {
       border-radius: 18px;
       padding: 18px;
@@ -464,6 +465,157 @@
       min-height: 340px;
       position: relative;
       overflow: hidden;
+    }
+
+    .screen-scanline {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(141,255,213,0.04) 50%,
+        transparent 100%
+      );
+      background-size: 100% 60px;
+      animation: scandown 4s linear infinite;
+    }
+
+    @keyframes scandown {
+      from { background-position: 0 -60px; }
+      to   { background-position: 0 100%; }
+    }
+
+    .term-section-head {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #ffd890;
+      margin: 10px 0 4px;
+      border-bottom: 1px solid rgba(255,216,144,0.18);
+      padding-bottom: 3px;
+    }
+
+    .term-section-head:first-child { margin-top: 0; }
+
+    .term-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: #cbe8ff;
+    }
+
+    .term-row .term-label { color: #7ea7cc; flex-shrink: 0; }
+    .term-row .term-val   { text-align: right; }
+
+    /* ── Module cards ────────────────────────────────────── */
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .module-card {
+      padding: 24px 20px;
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
+    }
+
+    .module-card:hover {
+      border-color: rgba(141,255,213,0.30);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.36), 0 0 30px rgba(141,255,213,0.06);
+      transform: translateY(-3px);
+    }
+
+    .module-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(141,255,213,0.04), transparent 45%);
+      pointer-events: none;
+    }
+
+    .module-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+      font-size: 1.3rem;
+      background: linear-gradient(135deg, rgba(141,255,213,0.14), rgba(79,179,255,0.08));
+      border: 1px solid rgba(141,255,213,0.18);
+    }
+
+    .module-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.02rem;
+      letter-spacing: -0.01em;
+    }
+
+    .module-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.91rem;
+      line-height: 1.65;
+    }
+
+    /* ── Why Gorktimus highlight card ───────────────────── */
+    .why-card {
+      text-align: center;
+      padding: 52px 32px;
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .why-card::before {
+      content: "";
+      position: absolute;
+      inset: -30% -10% auto -10%;
+      height: 200px;
+      background: radial-gradient(circle, rgba(141,255,213,0.08), transparent 65%);
+      pointer-events: none;
+    }
+
+    .why-card .why-quote {
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.25;
+      margin: 0 0 14px;
+      color: var(--text);
+    }
+
+    .why-card .why-sub {
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    @media (max-width: 1080px) {
+      .module-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+      .module-grid { grid-template-columns: 1fr; }
+      .why-card { padding: 36px 20px; }
     }
 
     .screen::before {
@@ -1356,16 +1508,8 @@
       </div>
       <nav class="nav-links">
         <a href="https://t.me/GorktimusPrime_bot" target="_blank" rel="noreferrer">Terminal</a>
-        <a href="https://t.co/HlZm1eYMNj" target="_blank" rel="noreferrer">Telegram</a>
+        <a href="https://t.me/gorktimusprimezone" target="_blank" rel="noreferrer">Prime Zone</a>
         <a href="https://x.com/gorktimusPrime" target="_blank" rel="noreferrer">X</a>
-        <a href="#vision">Vision</a>
-        <a href="#how">How It Works</a>
-        <a href="#features">Features</a>
-        <a href="#signals">Signals</a>
-        <a href="#scanner">Scanner</a>
-        <a href="#litepaper">Litepaper</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
@@ -1374,9 +1518,9 @@
     <section class="wrap hero" id="vision">
       <div>
         <div class="eyebrow">AI-powered meme intelligence ecosystem</div>
-        <h1>Detect behavior.<br />Read momentum.<br />See signals early.</h1>
+        <h1>Gorktimus Intelligence Terminal</h1>
         <p class="subtitle">
-          Gorktimus Prime is building an AI-powered intelligence layer for the meme-coin economy. The first interface is the Gorktimus Intelligence Terminal — a Telegram-based system built for early launch detection, risk scoring, rug analysis, wallet behavior, and hype intelligence.
+          AI-powered defense layer for meme-coin traders. Scan tokens, detect traps, track launches, and read market behavior before the crowd reacts.
         </p>
 
         <div class="hero-signal-bar">
@@ -1386,8 +1530,8 @@
         </div>
 
         <div class="hero-actions">
-          <a class="btn btn-primary" href="https://t.me/GorktimusPrime_bot" target="_blank" rel="noreferrer">Launch Intelligence Terminal</a>
-          <a class="btn btn-secondary" href="https://x.com/gorktimusPrime" target="_blank" rel="noreferrer">Follow on X</a>
+          <a class="btn btn-primary" href="https://t.me/GorktimusPrime_bot" target="_blank" rel="noreferrer">Enter the Terminal</a>
+          <a class="btn btn-secondary" href="https://t.me/gorktimusprimezone" target="_blank" rel="noreferrer">Join Prime Zone</a>
         </div>
 
         <div class="operator-card">
@@ -1417,22 +1561,37 @@
         </div>
 
         <div class="screen mono" aria-label="Gorktimus Intelligence Terminal preview">
-          <div><span class="live-dot"></span><span class="muted">GORKTIMUS INTELLIGENCE TERMINAL // LIVE SIGNAL</span><span class="cursor"></span></div>
-          <div>Token: <span class="hot">$GORKX</span></div>
-          <div>Age: <span class="good">11 min</span></div>
-          <div>Liquidity: <span class="good">$24,800</span></div>
-          <div>Liquidity Growth: <span class="good">+41%</span></div>
-          <div>Wallet Distribution: <span class="warn">Moderate concentration</span></div>
-          <div>Risk Score: <span class="warn">59 / 100</span></div>
-          <div>Rug Risk: <span class="warn">Moderate</span></div>
-          <div>Hype Score: <span class="hot">81 / 100</span></div>
-          <div>Signal: <span class="good">Momentum rising faster than crowd awareness</span></div>
+          <div class="screen-scanline" aria-hidden="true"></div>
+          <div><span class="live-dot"></span><span class="muted">GORKTIMUS INTELLIGENCE TERMINAL // v2.4.1</span><span class="cursor"></span></div>
           <br />
-          <div><span class="muted">What the terminal does:</span></div>
-          <div>- tracks token behavior, not just price</div>
-          <div>- scores risk when coins are pulled or watched</div>
-          <div>- detects rug patterns and suspicious liquidity shifts</div>
-          <div>- reads launch momentum and hype quality early</div>
+
+          <div class="term-section-head">▸ Token Scan Initialized</div>
+          <div class="term-row"><span class="term-label">Token</span><span class="term-val hot">$GORKX</span></div>
+          <div class="term-row"><span class="term-label">Age</span><span class="term-val good">11 min</span></div>
+          <div class="term-row"><span class="term-label">Chain</span><span class="term-val">Solana</span></div>
+
+          <div class="term-section-head">▸ Gorktimus Risk Verdict</div>
+          <div class="term-row"><span class="term-label">Risk Score</span><span class="term-val warn">59 / 100</span></div>
+          <div class="term-row"><span class="term-label">Rug Risk</span><span class="term-val warn">Moderate</span></div>
+
+          <div class="term-section-head">▸ Liquidity Health</div>
+          <div class="term-row"><span class="term-label">Liquidity</span><span class="term-val good">$24,800</span></div>
+          <div class="term-row"><span class="term-label">Liquidity Δ (1h)</span><span class="term-val good">+41%</span></div>
+
+          <div class="term-section-head">▸ Holder Concentration</div>
+          <div class="term-row"><span class="term-label">Distribution</span><span class="term-val warn">Moderate concentration</span></div>
+          <div class="term-row"><span class="term-label">Top 10 holders</span><span class="term-val warn">38.2%</span></div>
+
+          <div class="term-section-head">▸ Contract Transparency</div>
+          <div class="term-row"><span class="term-label">Mint authority</span><span class="term-val good">Revoked</span></div>
+          <div class="term-row"><span class="term-label">Freeze authority</span><span class="term-val good">Revoked</span></div>
+
+          <div class="term-section-head">▸ Whale Movement</div>
+          <div class="term-row"><span class="term-label">Smart wallets</span><span class="term-val hot">3 accumulating</span></div>
+          <div class="term-row"><span class="term-label">Hype Score</span><span class="term-val hot">81 / 100</span></div>
+
+          <div class="term-section-head">▸ Final Recommendation</div>
+          <div class="term-row"><span class="term-label">Signal</span><span class="term-val good">Momentum rising early</span></div>
         </div>
       </div>
     </section>
@@ -1572,64 +1731,47 @@
 
     <section class="wrap section" id="why">
       <div class="section-line"></div>
-      <h2 class="section-title">Why Gorktimus exists</h2>
-      <p class="section-copy">
-        Most meme traders are reacting to movement after the move already started. Gorktimus Prime is being built to compress that delay and surface what matters earlier.
-      </p>
+      <h2 class="section-title">Why Gorktimus?</h2>
 
-      <div class="story-card">
-        <div class="story-grid">
-          <div class="story-block">
-            <small>Problem</small>
-            <strong>Crypto moves too fast</strong>
-            <p>New coins appear every minute, hype rotates instantly, and most people only notice what is already running.</p>
-          </div>
-
-          <div class="story-block">
-            <small>Gap</small>
-            <strong>Most tools are late</strong>
-            <p>Most trackers show price and volume, but miss behavior, distribution risk, launch quality, and suspicious structure shifts.</p>
-          </div>
-
-          <div class="story-block">
-            <small>Mission</small>
-            <strong>Intelligence before noise</strong>
-            <p>Gorktimus Prime is designed to detect patterns, pressure points, and momentum quality before the crowd fully understands what is happening.</p>
-          </div>
-        </div>
+      <div class="why-card">
+        <p class="why-quote">"Most tools show charts.<br />Gorktimus interprets behavior."</p>
+        <p class="why-sub">
+          Charts tell you what happened. Gorktimus tells you why — and what's likely to happen next.<br />
+          Behavior patterns, pressure shifts, and structural signals — surfaced before the crowd catches on.
+        </p>
       </div>
     </section>
 
     <section class="wrap section" id="features">
       <div class="section-line"></div>
-      <h2 class="section-title">Core intelligence layers</h2>
+      <h2 class="section-title">Core intelligence modules</h2>
       <p class="section-copy">
-        The vision is not to build another generic trading bot. It is to build an intelligence engine that combines market behavior, wallet context, launch timing, and momentum quality into something traders can actually use.
+        Four precision layers. Each one built to give you an edge before the crowd even opens a chart.
       </p>
 
-      <div class="grid">
-        <article class="card">
-          <div class="icon">01</div>
-          <h3>Launch Detection</h3>
-          <p>Find tokens early, measure token age, and track how liquidity forms in the first minutes before most tools react.</p>
+      <div class="module-grid">
+        <article class="module-card">
+          <div class="module-icon">🔍</div>
+          <h3>Scan Token</h3>
+          <p>Drop any ticker or contract address and instantly receive a full behavior report — liquidity, risk score, holder concentration, and rug probability.</p>
         </article>
 
-        <article class="card">
-          <div class="icon">02</div>
-          <h3>Risk Engine</h3>
-          <p>Score coins on lookup, watchlist entry, and alert refresh using liquidity, age, behavior shifts, and risk flags.</p>
+        <article class="module-card">
+          <div class="module-icon">🚀</div>
+          <h3>Launch Radar</h3>
+          <p>Detect new tokens the moment they launch. Gorktimus tracks liquidity formation, token age, and early structure before wider awareness kicks in.</p>
         </article>
 
-        <article class="card">
-          <div class="icon">03</div>
-          <h3>Rug Detection</h3>
-          <p>Detect dangerous combinations like draining liquidity, worsening concentration, rising sells, or suspicious launch structure.</p>
+        <article class="module-card">
+          <div class="module-icon">📡</div>
+          <h3>Trending Intelligence</h3>
+          <p>Separate organic momentum from manufactured hype. The terminal reads trading acceleration, volume quality, and narrative velocity in real time.</p>
         </article>
 
-        <article class="card">
-          <div class="icon">04</div>
-          <h3>Hype Intelligence</h3>
-          <p>Measure whether momentum looks organic or manufactured by comparing trading acceleration, distribution, and liquidity quality.</p>
+        <article class="module-card">
+          <div class="module-icon">🐋</div>
+          <h3>Whale Tracker</h3>
+          <p>Monitor smart-wallet accumulation, suspicious large exits, and distribution shifts — so you know who's moving before the price reacts.</p>
         </article>
       </div>
     </section>
@@ -1853,13 +1995,13 @@
 
     <section class="wrap section" id="join">
       <div class="cta-card">
-        <h2 class="section-title">Join the early operators</h2>
+        <h2 class="section-title">The terminal is already active on Telegram.</h2>
         <p>
-          Gorktimus Prime is being built for people who want signal before noise. The Telegram terminal is the first interface. The broader intelligence layer comes next.
+          Enter the Gorktimus Intelligence Terminal now. Scan tokens, detect traps, and get ahead of the market — free, fast, and already live.
         </p>
         <div class="cta-actions">
-          <a class="btn btn-primary" href="https://t.co/HlZm1eYMNj" target="_blank" rel="noreferrer">Join Telegram</a>
-          <a class="btn btn-secondary" href="https://t.me/GorktimusPrime_bot" target="_blank" rel="noreferrer">Open Terminal</a>
+          <a class="btn btn-primary" href="https://t.me/GorktimusPrime_bot" target="_blank" rel="noreferrer">Enter the Terminal</a>
+          <a class="btn btn-secondary" href="https://t.me/gorktimusprimezone" target="_blank" rel="noreferrer">Join Prime Zone</a>
           <a class="btn btn-secondary" href="https://x.com/gorktimusPrime" target="_blank" rel="noreferrer">Follow on X</a>
         </div>
       </div>
