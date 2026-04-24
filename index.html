@@ -2194,7 +2194,7 @@
       var noteEl    = document.getElementById('scanNote');
       var resultsEl = document.getElementById('scanResults');
 
-      function hash(str, seed) {
+      function deterministicRandom(str, seed) {
         var h = seed | 0;
         for (var i = 0; i < str.length; i++) {
           h = Math.imul(h ^ str.charCodeAt(i), 0x9e3779b9);
@@ -2207,6 +2207,10 @@
         return n.toLocaleString('en-US');
       }
 
+      function shortenQuery(q) {
+        return q.length > 18 ? q.slice(0, 6) + '…' + q.slice(-4) : q.toUpperCase();
+      }
+
       function runScan() {
         var query = input.value.trim();
         if (!query) { input.focus(); return; }
@@ -2214,18 +2218,19 @@
         btn.disabled    = true;
         btn.textContent = 'Scanning…';
         noteEl.style.display = 'none';
-        resultsEl.innerHTML  = '<div class="scan-note" style="color:var(--glow2);padding:6px 0 2px;">⟳ Running intelligence scan on ' + (query.length > 20 ? query.slice(0,8)+'…'+query.slice(-6) : query) + ' …</div>';
+        resultsEl.innerHTML  = '<div class="scan-note" style="color:var(--glow2);padding:6px 0 2px;">⟳ Running intelligence scan on ' + shortenQuery(query) + ' …</div>';
 
         setTimeout(function () {
-          var liq       = 8000  + hash(query, 1) % 92000;
-          var mcap      = liq   * (2 + hash(query, 2) % 9);
-          var risk      = 25    + hash(query, 3) % 72;
-          var hype      = 15    + hash(query, 4) % 85;
-          var topH      = 12    + hash(query, 5) % 58;
-          var liqDelta  = -25   + hash(query, 6) % 70;
-          var swCount   = hash(query, 7) % 6;
-          var mintOk    = (hash(query, 8) % 3) !== 0;
-          var freezeOk  = (hash(query, 9) % 3) !== 0;
+          var r = deterministicRandom;
+          var liq       = 8000  + r(query, 1) % 92000;
+          var mcap      = liq   * (2 + r(query, 2) % 9);
+          var risk      = 25    + r(query, 3) % 72;
+          var hype      = 15    + r(query, 4) % 85;
+          var topH      = 12    + r(query, 5) % 58;
+          var liqDelta  = -25   + r(query, 6) % 70;
+          var swCount   = r(query, 7) % 6;
+          var mintOk    = (r(query, 8) % 3) !== 0;
+          var freezeOk  = (r(query, 9) % 3) !== 0;
 
           var rC = risk > 68 ? 'danger' : risk > 44 ? 'warn' : 'good';
           var rL = risk > 68 ? 'High Risk' : risk > 44 ? 'Moderate' : 'Low Risk';
@@ -2238,9 +2243,7 @@
                   : 'Structure looks clean — momentum building';
           var sigC = risk > 68 ? 'danger' : risk > 44 ? 'warn' : 'good';
 
-          var ticker = query.length > 18
-            ? query.slice(0,6) + '…' + query.slice(-4)
-            : query.toUpperCase();
+          var ticker = shortenQuery(query);
 
           /* update stat cards */
           gridEl.innerHTML =
