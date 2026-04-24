@@ -10,22 +10,22 @@
   />
   <style>
     :root {
-      --bg: #0d0202;
-      --bg2: #160404;
-      --bg3: #060101;
-      --card: rgba(28, 6, 6, 0.76);
-      --card-2: rgba(18, 4, 4, 0.84);
-      --text: #f0e8e8;
-      --muted: #9a8888;
-      --line: rgba(200, 50, 50, 0.18);
-      --line-strong: rgba(255, 60, 60, 0.22);
-      --glow: #cc1122;
-      --glow2: #ff4455;
-      --accent: #aa1122;
-      --good: #00ff99;
+      --bg: #07111f;
+      --bg2: #0d1d33;
+      --bg3: #050c16;
+      --card: rgba(14, 31, 55, 0.76);
+      --card-2: rgba(9, 21, 38, 0.84);
+      --text: #eaf4ff;
+      --muted: #9db3ca;
+      --line: rgba(125, 168, 216, 0.18);
+      --line-strong: rgba(126, 249, 255, 0.22);
+      --glow: #4fb3ff;
+      --glow2: #7ef9ff;
+      --accent: #78a6ff;
+      --good: #8dffd5;
       --warn: #ffd890;
-      --hot: #ff8899;
-      --danger: #ff2244;
+      --hot: #8fd6ff;
+      --danger: #ff8f9d;
       --shadow: 0 20px 50px rgba(0, 0, 0, 0.32);
       --radius: 24px;
     }
@@ -39,13 +39,13 @@
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at top, rgba(220,30,50,0.18), transparent 30%),
-        radial-gradient(circle at 80% 20%, rgba(255,60,70,0.10), transparent 18%),
+        radial-gradient(circle at top, rgba(79,179,255,0.18), transparent 30%),
+        radial-gradient(circle at 80% 20%, rgba(126,249,255,0.10), transparent 18%),
         radial-gradient(circle at 15% 80%, rgba(120,166,255,0.08), transparent 22%),
         repeating-linear-gradient(
           45deg,
-          rgba(255,60,70,0.025) 0px,
-          rgba(255,60,70,0.025) 2px,
+          rgba(126,249,255,0.025) 0px,
+          rgba(126,249,255,0.025) 2px,
           transparent 2px,
           transparent 12px
         ),
@@ -61,8 +61,8 @@
       inset: 0;
       pointer-events: none;
       background:
-        linear-gradient(rgba(255,60,70,0.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,60,70,0.018) 1px, transparent 1px);
+        linear-gradient(rgba(126,249,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(126,249,255,0.018) 1px, transparent 1px);
       background-size: 100% 28px, 28px 100%;
       opacity: 0.26;
       mask-image: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent 90%);
@@ -74,9 +74,9 @@
       inset: 0;
       pointer-events: none;
       background:
-        radial-gradient(circle at 20% 14%, rgba(255,60,70,0.06), transparent 0 2px, rgba(0,0,0,0) 3px),
-        radial-gradient(circle at 73% 33%, rgba(220,30,50,0.05), transparent 0 2px, rgba(0,0,0,0) 3px),
-        radial-gradient(circle at 58% 82%, rgba(255,60,70,0.05), transparent 0 2px, rgba(0,0,0,0) 3px);
+        radial-gradient(circle at 20% 14%, rgba(126,249,255,0.06), transparent 0 2px, rgba(0,0,0,0) 3px),
+        radial-gradient(circle at 73% 33%, rgba(79,179,255,0.05), transparent 0 2px, rgba(0,0,0,0) 3px),
+        radial-gradient(circle at 58% 82%, rgba(126,249,255,0.05), transparent 0 2px, rgba(0,0,0,0) 3px);
       background-size: 280px 280px, 360px 360px, 320px 320px;
       opacity: 0.35;
       animation: floatNoise 16s linear infinite;
@@ -100,7 +100,7 @@
       top: 0;
       z-index: 50;
       backdrop-filter: blur(16px);
-      background: rgba(14, 2, 2, 0.62);
+      background: rgba(4, 10, 18, 0.62);
       border-bottom: 1px solid var(--line);
     }
 
@@ -126,9 +126,9 @@
       width: 40px;
       height: 40px;
       border-radius: 14px;
-      border: 1px solid rgba(255,60,70,0.35);
-      background: linear-gradient(135deg, rgba(220,30,50,0.32), rgba(255,60,70,0.10));
-      box-shadow: 0 0 28px rgba(220,30,50,0.18);
+      border: 1px solid rgba(126,249,255,0.35);
+      background: linear-gradient(135deg, rgba(79,179,255,0.32), rgba(126,249,255,0.10));
+      box-shadow: 0 0 28px rgba(79,179,255,0.18);
       display: grid;
       place-items: center;
       color: var(--glow2);
@@ -180,7 +180,7 @@
       top: 2%;
       width: 240px;
       height: 240px;
-      background: radial-gradient(circle, rgba(220,30,50,0.18), transparent 68%);
+      background: radial-gradient(circle, rgba(79,179,255,0.18), transparent 68%);
       filter: blur(10px);
       pointer-events: none;
     }
@@ -190,13 +190,13 @@
       align-items: center;
       gap: 10px;
       padding: 8px 12px;
-      border: 1px solid rgba(255,60,70,0.24);
+      border: 1px solid rgba(126,249,255,0.24);
       border-radius: 999px;
       color: var(--glow2);
-      background: rgba(255,60,70,0.06);
+      background: rgba(126,249,255,0.06);
       font-size: 0.84rem;
       margin-bottom: 18px;
-      box-shadow: inset 0 0 20px rgba(255,60,70,0.03);
+      box-shadow: inset 0 0 20px rgba(126,249,255,0.03);
     }
 
     h1 {
@@ -239,16 +239,16 @@
     .btn:focus-visible { transform: translateY(-1px); }
 
     .btn-primary {
-      color: #0a0000;
+      color: #02101d;
       background: linear-gradient(135deg, var(--glow2), var(--glow));
-      box-shadow: 0 12px 34px rgba(220,30,50,0.28);
+      box-shadow: 0 12px 34px rgba(79,179,255,0.28);
     }
 
     .btn-secondary {
       color: var(--text);
-      border-color: rgba(255,60,70,0.22);
+      border-color: rgba(126,249,255,0.22);
       background: rgba(255,255,255,0.02);
-      box-shadow: inset 0 0 22px rgba(255,60,70,0.02);
+      box-shadow: inset 0 0 22px rgba(126,249,255,0.02);
     }
 
     .hero-signal-bar,
@@ -280,7 +280,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,60,70,0.05), transparent);
+      background: linear-gradient(90deg, transparent, rgba(126,249,255,0.05), transparent);
       transform: translateX(-100%);
       animation: sweep 5s linear infinite;
       pointer-events: none;
@@ -293,7 +293,7 @@
     .hero-signal-line,
     .mono {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      color: #ffd0d0;
+      color: #cbe8ff;
       font-size: 0.92rem;
       line-height: 1.65;
     }
@@ -303,24 +303,24 @@
       width: 9px;
       height: 9px;
       border-radius: 50%;
-      background: #00ff99;
-      box-shadow: 0 0 0 0 rgba(0,255,153,0.7);
+      background: #8dffd5;
+      box-shadow: 0 0 0 0 rgba(141,255,213,0.7);
       animation: pulse 1.8s infinite;
       margin-right: 8px;
       vertical-align: middle;
     }
 
     @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(0,255,153,0.7); }
-      70% { box-shadow: 0 0 0 10px rgba(0,255,153,0); }
-      100% { box-shadow: 0 0 0 0 rgba(0,255,153,0); }
+      0% { box-shadow: 0 0 0 0 rgba(141,255,213,0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(141,255,213,0); }
+      100% { box-shadow: 0 0 0 0 rgba(141,255,213,0); }
     }
 
     .cursor {
       display: inline-block;
       width: 8px;
       height: 1em;
-      background: #ff8899;
+      background: #8fd6ff;
       margin-left: 6px;
       vertical-align: -2px;
       animation: blink 1s steps(1) infinite;
@@ -344,7 +344,7 @@
       bottom: -40px;
       width: 140px;
       height: 140px;
-      background: radial-gradient(circle, rgba(255,60,70,0.10), transparent 70%);
+      background: radial-gradient(circle, rgba(126,249,255,0.10), transparent 70%);
       pointer-events: none;
     }
 
@@ -372,14 +372,14 @@
       border-radius: 999px;
       overflow: hidden;
       background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,60,70,0.12);
+      border: 1px solid rgba(126,249,255,0.12);
     }
 
     .operator-fill {
       width: 17.4%;
       height: 100%;
       background: linear-gradient(90deg, var(--glow), var(--glow2));
-      box-shadow: 0 0 18px rgba(220,30,50,0.25);
+      box-shadow: 0 0 18px rgba(79,179,255,0.25);
       transition: width 1.2s ease;
     }
 
@@ -400,7 +400,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(255,60,70,0.05), transparent 40%, transparent);
+      background: linear-gradient(135deg, rgba(126,249,255,0.05), transparent 40%, transparent);
       pointer-events: none;
     }
 
@@ -409,7 +409,7 @@
       border-radius: 18px;
       overflow: hidden;
       margin-bottom: 16px;
-      border: 1px solid rgba(255,60,70,0.15);
+      border: 1px solid rgba(126,249,255,0.15);
       background: rgba(255,255,255,0.02);
     }
 
@@ -417,7 +417,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, transparent 55%, rgba(12,2,2,0.25));
+      background: linear-gradient(180deg, transparent 55%, rgba(5,12,22,0.25));
       pointer-events: none;
     }
 
@@ -435,8 +435,8 @@
       align-items: center;
       padding: 8px 10px;
       border-radius: 999px;
-      background: rgba(10, 2, 2, 0.78);
-      border: 1px solid rgba(255,60,70,0.18);
+      background: rgba(3, 10, 18, 0.78);
+      border: 1px solid rgba(126,249,255,0.18);
       font-size: 0.76rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -461,8 +461,8 @@
     .screen {
       border-radius: 18px;
       padding: 18px;
-      background: linear-gradient(180deg, rgba(14,2,2,0.96), rgba(12,2,2,0.84));
-      border: 1px solid rgba(255,60,70,0.10);
+      background: linear-gradient(180deg, rgba(5,14,26,0.96), rgba(5,13,24,0.84));
+      border: 1px solid rgba(126,249,255,0.10);
       min-height: 340px;
       position: relative;
       overflow: hidden;
@@ -476,7 +476,7 @@
       background: linear-gradient(
         to bottom,
         transparent 0%,
-        rgba(0,255,153,0.04) 50%,
+        rgba(141,255,213,0.04) 50%,
         transparent 100%
       );
       background-size: 100% 60px;
@@ -494,9 +494,9 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: #00ff99;
+      color: #ffd890;
       margin: 10px 0 4px;
-      border-bottom: 1px solid rgba(0,255,153,0.20);
+      border-bottom: 1px solid rgba(255,216,144,0.18);
       padding-bottom: 3px;
     }
 
@@ -510,10 +510,10 @@
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 0.88rem;
       line-height: 1.7;
-      color: #ffd0d0;
+      color: #cbe8ff;
     }
 
-    .term-row .term-label { color: #9a7070; flex-shrink: 0; }
+    .term-row .term-label { color: #7ea7cc; flex-shrink: 0; }
     .term-row .term-val   { text-align: right; }
 
     /* ── Module cards ────────────────────────────────────── */
@@ -535,8 +535,8 @@
     }
 
     .module-card:hover {
-      border-color: rgba(0,255,153,0.30);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.36), 0 0 30px rgba(0,255,153,0.06);
+      border-color: rgba(141,255,213,0.30);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.36), 0 0 30px rgba(141,255,213,0.06);
       transform: translateY(-3px);
     }
 
@@ -544,7 +544,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(0,255,153,0.04), transparent 45%);
+      background: linear-gradient(135deg, rgba(141,255,213,0.04), transparent 45%);
       pointer-events: none;
     }
 
@@ -556,8 +556,8 @@
       place-items: center;
       margin-bottom: 14px;
       font-size: 1.3rem;
-      background: linear-gradient(135deg, rgba(0,255,153,0.14), rgba(220,30,50,0.08));
-      border: 1px solid rgba(0,255,153,0.18);
+      background: linear-gradient(135deg, rgba(141,255,213,0.14), rgba(79,179,255,0.08));
+      border: 1px solid rgba(141,255,213,0.18);
     }
 
     .module-card h3 {
@@ -590,7 +590,7 @@
       position: absolute;
       inset: -30% -10% auto -10%;
       height: 200px;
-      background: radial-gradient(circle, rgba(0,255,153,0.08), transparent 65%);
+      background: radial-gradient(circle, rgba(141,255,213,0.08), transparent 65%);
       pointer-events: none;
     }
 
@@ -624,8 +624,8 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(rgba(255,60,70,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,60,70,0.03) 1px, transparent 1px);
+        linear-gradient(rgba(126,249,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(126,249,255,0.03) 1px, transparent 1px);
       background-size: 100% 24px, 24px 100%;
       opacity: 0.35;
       pointer-events: none;
@@ -637,14 +637,14 @@
       inset: auto -10% -30% auto;
       width: 220px;
       height: 220px;
-      background: radial-gradient(circle, rgba(220,30,50,0.20), transparent 68%);
+      background: radial-gradient(circle, rgba(79,179,255,0.20), transparent 68%);
       pointer-events: none;
     }
 
-    .mono .muted { color: #9a7070; }
-    .mono .good { color: #00ff99; }
+    .mono .muted { color: #7ea7cc; }
+    .mono .good { color: #8dffd5; }
     .mono .warn { color: #ffd890; }
-    .mono .hot { color: #ff8899; }
+    .mono .hot { color: #8fd6ff; }
 
     .good { color: var(--good); }
     .warn { color: var(--warn); }
@@ -675,7 +675,7 @@
       border-radius: 999px;
       margin: 0 0 20px;
       background: linear-gradient(90deg, var(--glow2), transparent);
-      box-shadow: 0 0 20px rgba(255,60,70,0.15);
+      box-shadow: 0 0 20px rgba(126,249,255,0.15);
     }
 
     .live-feed {
@@ -691,9 +691,9 @@
       align-items: center;
       padding: 14px 16px;
       border-radius: 16px;
-      border: 1px solid rgba(255,60,70,0.10);
+      border: 1px solid rgba(126,249,255,0.10);
       background: rgba(255,255,255,0.02);
-      box-shadow: inset 0 0 24px rgba(255,60,70,0.015);
+      box-shadow: inset 0 0 24px rgba(126,249,255,0.015);
     }
 
     .feed-left strong {
@@ -744,7 +744,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(255,60,70,0.04), transparent 45%);
+      background: linear-gradient(135deg, rgba(126,249,255,0.04), transparent 45%);
       pointer-events: none;
     }
 
@@ -809,7 +809,7 @@
       padding: 13px 14px;
       border-radius: 16px;
       background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,60,70,0.08);
+      border: 1px solid rgba(126,249,255,0.08);
     }
 
     .metric span:first-child {
@@ -844,7 +844,7 @@
       padding: 18px;
       border-radius: 18px;
       background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,60,70,0.10);
+      border: 1px solid rgba(126,249,255,0.10);
     }
 
     .story-block small {
@@ -882,7 +882,7 @@
       top: 50%;
       height: 2px;
       transform: translateY(-50%);
-      background: linear-gradient(90deg, transparent, rgba(255,60,70,0.22), transparent);
+      background: linear-gradient(90deg, transparent, rgba(126,249,255,0.22), transparent);
       z-index: 0;
     }
 
@@ -890,7 +890,7 @@
       padding: 20px;
       border-radius: 20px;
       background: var(--card-2);
-      border: 1px solid rgba(255,60,70,0.12);
+      border: 1px solid rgba(126,249,255,0.12);
       box-shadow: var(--shadow);
       z-index: 1;
     }
@@ -902,8 +902,8 @@
       align-items: center;
       padding: 6px 9px;
       border-radius: 999px;
-      background: rgba(255,60,70,0.07);
-      border: 1px solid rgba(255,60,70,0.16);
+      background: rgba(126,249,255,0.07);
+      border: 1px solid rgba(126,249,255,0.16);
       color: var(--glow2);
       font-size: 0.72rem;
       letter-spacing: 0.08em;
@@ -935,8 +935,8 @@
       place-items: center;
       margin-bottom: 14px;
       color: var(--glow2);
-      background: linear-gradient(135deg, rgba(220,30,50,0.18), rgba(255,60,70,0.08));
-      border: 1px solid rgba(255,60,70,0.16);
+      background: linear-gradient(135deg, rgba(79,179,255,0.18), rgba(126,249,255,0.08));
+      border: 1px solid rgba(126,249,255,0.16);
       font-weight: 700;
     }
 
@@ -951,8 +951,8 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 85% 20%, rgba(255,60,70,0.07), transparent 25%),
-        linear-gradient(90deg, transparent, rgba(255,60,70,0.03), transparent);
+        radial-gradient(circle at 85% 20%, rgba(126,249,255,0.07), transparent 25%),
+        linear-gradient(90deg, transparent, rgba(126,249,255,0.03), transparent);
       pointer-events: none;
     }
 
@@ -964,8 +964,8 @@
       padding: 18px;
       border-radius: 18px;
       background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,60,70,0.10);
-      box-shadow: inset 0 0 22px rgba(255,60,70,0.015);
+      border: 1px solid rgba(126,249,255,0.10);
+      box-shadow: inset 0 0 22px rgba(126,249,255,0.015);
     }
 
     .signal-card h3 {
@@ -993,7 +993,7 @@
       left: -25%;
       width: 50%;
       height: calc(100% - 28px);
-      background: linear-gradient(90deg, transparent, rgba(255,60,70,0.06), transparent);
+      background: linear-gradient(90deg, transparent, rgba(126,249,255,0.06), transparent);
       transform: skewX(-16deg);
       animation: scannerSweep 5s linear infinite;
       pointer-events: none;
@@ -1007,8 +1007,8 @@
     .scan-shell {
       border-radius: 20px;
       padding: 18px;
-      background: linear-gradient(180deg, rgba(14,2,2,0.96), rgba(12,2,2,0.84));
-      border: 1px solid rgba(255,60,70,0.10);
+      background: linear-gradient(180deg, rgba(5,14,26,0.96), rgba(5,13,24,0.84));
+      border: 1px solid rgba(126,249,255,0.10);
       position: relative;
       overflow: hidden;
     }
@@ -1025,7 +1025,7 @@
       min-width: 0;
       padding: 14px 16px;
       border-radius: 14px;
-      border: 1px solid rgba(255,60,70,0.14);
+      border: 1px solid rgba(126,249,255,0.14);
       background: rgba(255,255,255,0.03);
       color: var(--text);
       outline: none;
@@ -1034,18 +1034,18 @@
     }
 
     .scan-input:focus {
-      border-color: rgba(255,60,70,0.40);
-      box-shadow: 0 0 0 3px rgba(255,60,70,0.08);
+      border-color: rgba(126,249,255,0.40);
+      box-shadow: 0 0 0 3px rgba(126,249,255,0.07);
     }
 
-    .scan-input::placeholder { color: #9a7070; }
+    .scan-input::placeholder { color: #7ea7cc; }
 
     .scan-btn {
       padding: 14px 18px;
       border-radius: 14px;
-      border: 1px solid rgba(255,60,70,0.14);
+      border: 1px solid rgba(126,249,255,0.14);
       background: linear-gradient(135deg, var(--glow2), var(--glow));
-      color: #0a0000;
+      color: #02101d;
       font-weight: 800;
       cursor: pointer;
       transition: transform 0.18s ease, box-shadow 0.18s ease;
@@ -1053,7 +1053,7 @@
 
     .scan-btn:hover:not(:disabled) {
       transform: translateY(-1px);
-      box-shadow: 0 8px 24px rgba(220,30,50,0.35);
+      box-shadow: 0 8px 24px rgba(79,179,255,0.35);
     }
 
     .scan-btn:disabled { opacity: 0.7; cursor: default; }
@@ -1069,7 +1069,7 @@
       padding: 16px;
       border-radius: 16px;
       background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,60,70,0.08);
+      border: 1px solid rgba(126,249,255,0.08);
       position: relative;
       overflow: hidden;
     }
@@ -1078,7 +1078,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(255,60,70,0.03), transparent 55%);
+      background: linear-gradient(135deg, rgba(126,249,255,0.03), transparent 55%);
       pointer-events: none;
     }
 
@@ -1113,8 +1113,8 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 50% 0%, rgba(255,60,70,0.08), transparent 35%),
-        radial-gradient(circle at 20% 100%, rgba(220,30,50,0.05), transparent 28%);
+        radial-gradient(circle at 50% 0%, rgba(126,249,255,0.08), transparent 35%),
+        radial-gradient(circle at 20% 100%, rgba(79,179,255,0.05), transparent 28%);
       pointer-events: none;
     }
 
@@ -1138,7 +1138,7 @@
       padding: 18px 16px;
       border-radius: 18px;
       background: rgba(255,255,255,0.025);
-      border: 1px solid rgba(255,60,70,0.12);
+      border: 1px solid rgba(126,249,255,0.12);
       text-align: center;
       box-shadow: var(--shadow);
       position: relative;
@@ -1158,8 +1158,8 @@
     }
 
     .diagram-core {
-      border-color: rgba(255,60,70,0.24);
-      box-shadow: 0 0 40px rgba(220,30,50,0.14), var(--shadow);
+      border-color: rgba(126,249,255,0.24);
+      box-shadow: 0 0 40px rgba(79,179,255,0.14), var(--shadow);
     }
 
     .diagram-arrow {
@@ -1182,7 +1182,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(255,60,70,0.04), transparent 45%);
+      background: linear-gradient(135deg, rgba(126,249,255,0.04), transparent 45%);
       pointer-events: none;
     }
 
@@ -1194,7 +1194,7 @@
       padding: 18px;
       border-radius: 18px;
       background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,60,70,0.10);
+      border: 1px solid rgba(126,249,255,0.10);
     }
 
     .whitepaper-card h3 {
@@ -1227,7 +1227,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(255,60,70,0.03), transparent 55%);
+      background: linear-gradient(135deg, rgba(126,249,255,0.03), transparent 55%);
       pointer-events: none;
     }
 
@@ -1263,7 +1263,7 @@
       position: absolute;
       inset: -40% -10% auto -10%;
       height: 200px;
-      background: radial-gradient(circle, rgba(255,60,70,0.10), transparent 65%);
+      background: radial-gradient(circle, rgba(126,249,255,0.10), transparent 65%);
       pointer-events: none;
     }
 
@@ -1356,8 +1356,8 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 90% 10%, rgba(255,60,70,0.07), transparent 35%),
-        linear-gradient(135deg, rgba(220,30,50,0.04), transparent 50%);
+        radial-gradient(circle at 90% 10%, rgba(126,249,255,0.07), transparent 35%),
+        linear-gradient(135deg, rgba(79,179,255,0.04), transparent 50%);
       pointer-events: none;
     }
 
@@ -1387,7 +1387,7 @@
     .contact-textarea {
       padding: 13px 16px;
       border-radius: 14px;
-      border: 1px solid rgba(255,60,70,0.14);
+      border: 1px solid rgba(126,249,255,0.14);
       background: rgba(255,255,255,0.03);
       color: var(--text);
       font-family: inherit;
@@ -1398,12 +1398,12 @@
     }
 
     .contact-input::placeholder,
-    .contact-textarea::placeholder { color: #9a7070; }
+    .contact-textarea::placeholder { color: #7ea7cc; }
 
     .contact-input:focus,
     .contact-textarea:focus {
-      border-color: rgba(255,60,70,0.38);
-      box-shadow: 0 0 0 3px rgba(255,60,70,0.07);
+      border-color: rgba(126,249,255,0.38);
+      box-shadow: 0 0 0 3px rgba(126,249,255,0.07);
     }
 
     .contact-textarea {
@@ -1418,18 +1418,18 @@
       border-radius: 16px;
       border: none;
       background: linear-gradient(135deg, var(--glow2), var(--glow));
-      color: #0a0000;
+      color: #02101d;
       font-weight: 800;
       font-size: 0.95rem;
       cursor: pointer;
       transition: transform 0.18s ease, box-shadow 0.18s ease;
-      box-shadow: 0 8px 24px rgba(220,30,50,0.24);
+      box-shadow: 0 8px 24px rgba(79,179,255,0.24);
     }
 
     .contact-submit:hover,
     .contact-submit:focus-visible {
       transform: translateY(-1px);
-      box-shadow: 0 12px 32px rgba(220,30,50,0.34);
+      box-shadow: 0 12px 32px rgba(79,179,255,0.34);
     }
 
     @media (max-width: 700px) {
@@ -1443,7 +1443,7 @@
       position: fixed;
       inset: 0;
       z-index: 200;
-      background: rgba(10,2,2,0.72);
+      background: rgba(2,10,22,0.72);
       backdrop-filter: blur(6px);
       align-items: center;
       justify-content: center;
@@ -1456,7 +1456,7 @@
       background: var(--bg2);
       border: 1px solid var(--line-strong);
       border-radius: var(--radius);
-      box-shadow: 0 30px 70px rgba(0,0,0,0.5), 0 0 60px rgba(255,60,70,0.08);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.5), 0 0 60px rgba(126,249,255,0.08);
       padding: 36px 32px;
       max-width: 460px;
       width: 100%;
@@ -1474,8 +1474,8 @@
       width: 54px;
       height: 54px;
       border-radius: 18px;
-      background: linear-gradient(135deg, rgba(220,30,50,0.22), rgba(255,60,70,0.10));
-      border: 1px solid rgba(255,60,70,0.26);
+      background: linear-gradient(135deg, rgba(79,179,255,0.22), rgba(126,249,255,0.10));
+      border: 1px solid rgba(126,249,255,0.26);
       display: grid;
       place-items: center;
       margin: 0 auto 18px;
@@ -1498,7 +1498,7 @@
     .modal-close {
       padding: 12px 28px;
       border-radius: 14px;
-      border: 1px solid rgba(255,60,70,0.22);
+      border: 1px solid rgba(126,249,255,0.22);
       background: rgba(255,255,255,0.03);
       color: var(--text);
       font-weight: 700;
@@ -1509,8 +1509,8 @@
 
     .modal-close:hover,
     .modal-close:focus-visible {
-      background: rgba(255,60,70,0.06);
-      border-color: rgba(255,60,70,0.38);
+      background: rgba(126,249,255,0.06);
+      border-color: rgba(126,249,255,0.38);
     }
   </style>
 </head>
@@ -1607,6 +1607,53 @@
 
           <div class="term-section-head">▸ Final Recommendation</div>
           <div class="term-row"><span class="term-label">Signal</span><span class="term-val good">Momentum rising early</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section" id="scanner">
+      <div class="section-line"></div>
+      <h2 class="section-title">Scan a token</h2>
+      <p class="section-copy">
+        Live token intelligence powered by DexScreener and RugCheck. Enter a contract address or ticker to pull real liquidity, risk score, holder concentration, and market structure.
+      </p>
+
+      <div class="scan-box">
+        <div class="scan-shell">
+          <div class="scan-form">
+            <input
+              class="scan-input"
+              type="text"
+              id="scanInput"
+              placeholder="Paste token ticker or contract address..."
+              value="2Ci4XBmr67JFoS5YPrE8hmJPN9QgkcUab7xd8Vpipump"
+            />
+            <button class="scan-btn" type="button">Run Scan</button>
+          </div>
+
+          <div class="scan-grid">
+            <div class="scan-stat">
+              <small>Liquidity</small>
+              <strong>$42,300</strong>
+            </div>
+            <div class="scan-stat">
+              <small>Market Cap</small>
+              <strong>$188,000</strong>
+            </div>
+            <div class="scan-stat">
+              <small>Risk Score</small>
+              <strong class="warn">61 / 100</strong>
+            </div>
+            <div class="scan-stat">
+              <small>Holder Concentration</small>
+              <strong class="warn">Moderate</strong>
+            </div>
+          </div>
+
+          <div class="scan-note" id="scanNote">
+            The scanner is designed to surface liquidity quality, launch behavior, hype strength, wallet concentration, and rug probability in one view.
+          </div>
+          <div id="scanResults" style="margin-top:14px;"></div>
         </div>
       </div>
     </section>
@@ -1823,53 +1870,6 @@
             <h3>Organic vs artificial hype</h3>
             <p>Compare acceleration, structure, and liquidity quality to separate stronger organic momentum from low-quality hype.</p>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="wrap section" id="scanner">
-      <div class="section-line"></div>
-      <h2 class="section-title">Scan a token</h2>
-      <p class="section-copy">
-        Preview how the intelligence layer evaluates a token by reading liquidity, concentration, market structure, and momentum quality.
-      </p>
-
-      <div class="scan-box">
-        <div class="scan-shell">
-          <div class="scan-form">
-            <input
-              class="scan-input"
-              type="text"
-              id="scanInput"
-              placeholder="Paste token ticker or contract address..."
-              value="2Ci4XBmr67JFoS5YPrE8hmJPN9QgkcUab7xd8Vpipump"
-            />
-            <button class="scan-btn" type="button">Run Scan</button>
-          </div>
-
-          <div class="scan-grid">
-            <div class="scan-stat">
-              <small>Liquidity</small>
-              <strong>$42,300</strong>
-            </div>
-            <div class="scan-stat">
-              <small>Market Cap</small>
-              <strong>$188,000</strong>
-            </div>
-            <div class="scan-stat">
-              <small>Risk Score</small>
-              <strong class="warn">61 / 100</strong>
-            </div>
-            <div class="scan-stat">
-              <small>Holder Concentration</small>
-              <strong class="warn">Moderate</strong>
-            </div>
-          </div>
-
-          <div class="scan-note" id="scanNote">
-            The scanner is designed to surface liquidity quality, launch behavior, hype strength, wallet concentration, and rug probability in one view.
-          </div>
-          <div id="scanResults" style="margin-top:14px;"></div>
         </div>
       </div>
     </section>
@@ -2186,7 +2186,7 @@
       if (fillEl)  fillEl.style.width  = pct + '%';
     }());
 
-    /* ── Interactive Token Scanner ───────────────────────── */
+    /* ── Interactive Token Scanner (live data) ───────────── */
     (function () {
       var btn       = document.querySelector('.scan-btn');
       var input     = document.getElementById('scanInput');
@@ -2194,90 +2194,210 @@
       var noteEl    = document.getElementById('scanNote');
       var resultsEl = document.getElementById('scanResults');
 
-      function deterministicRandom(str, seed) {
-        var h = seed | 0;
-        for (var i = 0; i < str.length; i++) {
-          h = Math.imul(h ^ str.charCodeAt(i), 0x9e3779b9);
-          h ^= h >>> 16;
-        }
-        return Math.abs(h);
+      /* ── Helpers ──────────────────────────────────────── */
+      function esc(s) {
+        return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
       }
 
-      function fmt(n) {
-        return n.toLocaleString('en-US');
+      function fmtUsd(n) {
+        n = +n;
+        if (!n && n !== 0) return 'N/A';
+        if (n >= 1e9) return '$' + (n / 1e9).toFixed(2) + 'B';
+        if (n >= 1e6) return '$' + (n / 1e6).toFixed(2) + 'M';
+        if (n >= 1e3) return '$' + (n / 1e3).toFixed(1) + 'K';
+        return '$' + Math.round(n).toLocaleString('en-US');
       }
 
-      function shortenQuery(q) {
-        return q.length > 18 ? q.slice(0, 6) + '…' + q.slice(-4) : q.toUpperCase();
+      function fmtPct(n) {
+        if (n == null || isNaN(+n)) return 'N/A';
+        n = +n;
+        return (n >= 0 ? '+' : '') + n.toFixed(1) + '%';
       }
 
+      function isSolAddr(q) {
+        return /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(q);
+      }
+
+      function shorten(q) {
+        return q.length > 18 ? q.slice(0, 6) + '\u2026' + q.slice(-4) : q.toUpperCase();
+      }
+
+      /* ── Risk heuristic when RugCheck is unavailable ──── */
+      function dexRisk(pair) {
+        var risk = 35;
+        var liq  = (pair.liquidity && +pair.liquidity.usd) || 0;
+        var age  = pair.pairCreatedAt ? (Date.now() - pair.pairCreatedAt) / 3600000 : 999;
+        var h1   = (pair.priceChange && +pair.priceChange.h1) || 0;
+        var tx   = (pair.txns && pair.txns.h1) || { buys: 0, sells: 0 };
+        if (liq < 5000)  risk += 40;
+        else if (liq < 20000) risk += 20;
+        else if (liq < 50000) risk += 10;
+        if (age < 0.5) risk += 20;
+        else if (age < 2) risk += 10;
+        if (h1 < -20) risk += 15;
+        else if (h1 < -10) risk += 8;
+        if (+tx.sells > +tx.buys * 2) risk += 15;
+        return Math.min(99, Math.max(10, risk));
+      }
+
+      /* ── API calls ────────────────────────────────────── */
+      function fetchDex(query) {
+        var url = isSolAddr(query)
+          ? 'https://api.dexscreener.com/latest/dex/tokens/' + encodeURIComponent(query)
+          : 'https://api.dexscreener.com/latest/dex/search?q=' + encodeURIComponent(query);
+        return fetch(url).then(function (r) {
+          if (!r.ok) throw new Error('DexScreener ' + r.status);
+          return r.json();
+        });
+      }
+
+      function fetchRug(mint) {
+        return fetch('https://api.rugcheck.xyz/v1/tokens/' + mint + '/report/summary')
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .catch(function () { return null; });
+      }
+
+      /* Pick best (highest-liquidity) Solana pair from DexScreener response */
+      function bestPair(data) {
+        var pairs = (data && data.pairs) || [];
+        var sol   = pairs.filter(function (p) { return p.chainId === 'solana'; });
+        var list  = sol.length ? sol : pairs;
+        list.sort(function (a, b) {
+          return ((b.liquidity && +b.liquidity.usd) || 0) - ((a.liquidity && +a.liquidity.usd) || 0);
+        });
+        return list[0] || null;
+      }
+
+      /* Parse RugCheck summary into normalised fields */
+      function parseRug(rug, pair) {
+        if (!rug) return { risk: dexRisk(pair), mintOk: null, freezeOk: null, topHPct: null };
+        var risk;
+        if (rug.score_normalised != null) risk = Math.min(100, Math.round(+rug.score_normalised));
+        else if (rug.score != null)       risk = Math.min(100, Math.round(+rug.score / 10));
+        else                              risk = dexRisk(pair);
+        var holders = rug.topHolders || [];
+        var pctScale = holders.some(function (h) { return (h.pct || 0) > 1; }) ? 1 : 100;
+        var topHPct  = holders.slice(0, 10).reduce(function (s, h) { return s + (h.pct || 0) * pctScale; }, 0);
+        return {
+          risk:    risk,
+          mintOk:  rug.mintAuthority  == null,
+          freezeOk: rug.freezeAuthority == null,
+          topHPct: topHPct
+        };
+      }
+
+      /* ── UI helpers ───────────────────────────────────── */
+      function showError(msg) {
+        resultsEl.innerHTML = '<div class="scan-note" style="color:var(--danger);">' + esc(msg) + '</div>';
+        noteEl.style.display = '';
+        btn.disabled = false;
+        btn.textContent = 'Run Scan';
+      }
+
+      function renderResults(pair, rugData) {
+        var liq    = (pair.liquidity && +pair.liquidity.usd) || 0;
+        var mcap   = +(pair.fdv || pair.marketCap || 0);
+        var h1     = (pair.priceChange && +pair.priceChange.h1) || 0;
+        var vol24  = (pair.volume && +pair.volume.h24) || 0;
+        var txH1   = (pair.txns && pair.txns.h1) || { buys: 0, sells: 0 };
+        var ticker = esc((pair.baseToken && pair.baseToken.symbol) || '???');
+        var name   = esc((pair.baseToken && pair.baseToken.name)   || ticker);
+        var chain  = esc(pair.chainId || 'unknown');
+        var ageH   = pair.pairCreatedAt ? (Date.now() - pair.pairCreatedAt) / 3600000 : null;
+
+        var p       = parseRug(rugData, pair);
+        var riskRaw = p.risk;
+        var rC = riskRaw > 68 ? 'danger' : riskRaw > 44 ? 'warn' : 'good';
+        var rL = riskRaw > 68 ? 'High Risk' : riskRaw > 44 ? 'Moderate' : 'Low Risk';
+        var lC = h1 >= 0 ? 'good' : 'danger';
+        var cC = p.topHPct != null ? (p.topHPct > 45 ? 'danger' : p.topHPct > 25 ? 'warn' : 'good') : 'muted';
+        var cL = p.topHPct != null ? (p.topHPct > 45 ? 'High concentration' : p.topHPct > 25 ? 'Moderate' : 'Healthy') : 'N/A';
+
+        var hype = vol24 && liq ? Math.min(99, Math.round((vol24 / liq) * 40)) : 0;
+        var hC   = hype > 70 ? 'hot' : hype > 40 ? 'warn' : 'muted';
+
+        var sigC, sig;
+        if (riskRaw > 68)      { sigC = 'danger'; sig = 'High risk \u2014 caution advised'; }
+        else if (riskRaw > 44) { sigC = 'warn';   sig = 'Moderate \u2014 monitor closely'; }
+        else if (h1 > 5)       { sigC = 'good';   sig = 'Structure clean \u2014 momentum building'; }
+        else                   { sigC = 'good';   sig = 'Low risk \u2014 watch for volume confirmation'; }
+
+        var mintVal = p.mintOk === null
+          ? '<span class="term-val muted">N/A</span>'
+          : p.mintOk
+            ? '<span class="term-val good">Revoked \u2713</span>'
+            : '<span class="term-val danger">Active \u2014 risk</span>';
+        var frzVal  = p.freezeOk === null
+          ? '<span class="term-val muted">N/A</span>'
+          : p.freezeOk
+            ? '<span class="term-val good">Revoked \u2713</span>'
+            : '<span class="term-val danger">Active \u2014 risk</span>';
+
+        var ageStr = ageH !== null
+          ? esc(ageH < 1 ? Math.round(ageH * 60) + ' min' : ageH < 24 ? ageH.toFixed(1) + ' h' : Math.round(ageH / 24) + ' d')
+          : null;
+
+        /* stat cards */
+        gridEl.innerHTML =
+          '<div class="scan-stat"><small>Liquidity</small><strong>' + (liq ? fmtUsd(liq) : 'N/A') + '</strong></div>' +
+          '<div class="scan-stat"><small>Market Cap</small><strong>'  + (mcap ? fmtUsd(mcap) : 'N/A') + '</strong></div>' +
+          '<div class="scan-stat"><small>Risk Score</small><strong class="' + rC + '">' + riskRaw + ' / 100</strong></div>' +
+          '<div class="scan-stat"><small>Holder Concentration</small><strong class="' + cC + '">' + cL + '</strong></div>';
+
+        /* terminal detail */
+        resultsEl.innerHTML =
+          '<div class="screen mono" style="margin-top:14px;min-height:auto;">' +
+            '<div class="screen-scanline" aria-hidden="true"></div>' +
+            '<div class="term-section-head">\u25b8 Token \u2014 ' + name + ' ($' + ticker + ')</div>' +
+            (ageStr ? '<div class="term-row"><span class="term-label">Pair Age</span><span class="term-val ' + (ageH < 1 ? 'hot' : 'muted') + '">' + ageStr + '</span></div>' : '') +
+            '<div class="term-row"><span class="term-label">Chain</span><span class="term-val muted">' + chain + '</span></div>' +
+            '<div class="term-row"><span class="term-label">Price \u0394 (1h)</span><span class="term-val ' + lC + '">' + fmtPct(h1) + '</span></div>' +
+            '<div class="term-row"><span class="term-label">Buys / Sells (1h)</span><span class="term-val muted">' + (+txH1.buys || 0) + '\u2191 / ' + (+txH1.sells || 0) + '\u2193</span></div>' +
+            '<div class="term-section-head">\u25b8 Gorktimus Risk Verdict</div>' +
+            '<div class="term-row"><span class="term-label">Risk Score</span><span class="term-val ' + rC + '">' + riskRaw + ' / 100 \u2014 ' + rL + '</span></div>' +
+            '<div class="term-row"><span class="term-label">Top 10 Holders</span><span class="term-val ' + cC + '">' + (p.topHPct != null ? p.topHPct.toFixed(1) + '%' : 'N/A') + '</span></div>' +
+            '<div class="term-section-head">\u25b8 Contract Transparency</div>' +
+            '<div class="term-row"><span class="term-label">Mint authority</span>' + mintVal + '</div>' +
+            '<div class="term-row"><span class="term-label">Freeze authority</span>' + frzVal + '</div>' +
+            '<div class="term-section-head">\u25b8 Volume & Momentum</div>' +
+            '<div class="term-row"><span class="term-label">Volume 24h</span><span class="term-val muted">' + (vol24 ? fmtUsd(vol24) : 'N/A') + '</span></div>' +
+            '<div class="term-row"><span class="term-label">Hype Score</span><span class="term-val ' + hC + '">' + hype + ' / 100</span></div>' +
+            '<div class="term-section-head">\u25b8 Final Recommendation</div>' +
+            '<div class="term-row"><span class="term-label">Signal</span><span class="term-val ' + sigC + '">' + sig + '</span></div>' +
+          '</div>' +
+          '<div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">' +
+            '<a href="https://t.me/GorktimusPrime_bot" target="_blank" rel="noreferrer" class="btn btn-primary" style="font-size:0.88rem;padding:10px 16px;">Scan Live in Telegram \u2192</a>' +
+            '<span style="color:var(--muted);font-size:0.84rem;">Live data: DexScreener' + (rugData ? ' + RugCheck' : '') + '.</span>' +
+          '</div>';
+
+        btn.disabled = false;
+        btn.textContent = 'Run Scan';
+      }
+
+      /* ── Main scan flow ───────────────────────────────── */
       function runScan() {
         var query = input.value.trim();
         if (!query) { input.focus(); return; }
 
-        btn.disabled    = true;
-        btn.textContent = 'Scanning…';
+        btn.disabled = true;
+        btn.textContent = 'Scanning\u2026';
         noteEl.style.display = 'none';
-        resultsEl.innerHTML  = '<div class="scan-note" style="color:var(--glow2);padding:6px 0 2px;">⟳ Running intelligence scan on ' + shortenQuery(query) + ' …</div>';
+        resultsEl.innerHTML = '<div class="scan-note" style="color:var(--glow2);padding:6px 0 2px;">\u27f3 Fetching live data for ' + esc(shorten(query)) + ' \u2026</div>';
 
-        setTimeout(function () {
-          var r = deterministicRandom;
-          var liq       = 8000  + r(query, 1) % 92000;
-          var mcap      = liq   * (2 + r(query, 2) % 9);
-          var risk      = 25    + r(query, 3) % 72;
-          var hype      = 15    + r(query, 4) % 85;
-          var topH      = 12    + r(query, 5) % 58;
-          var liqDelta  = -25   + r(query, 6) % 70;
-          var swCount   = r(query, 7) % 6;
-          var mintOk    = (r(query, 8) % 3) !== 0;
-          var freezeOk  = (r(query, 9) % 3) !== 0;
-
-          var rC = risk > 68 ? 'danger' : risk > 44 ? 'warn' : 'good';
-          var rL = risk > 68 ? 'High Risk' : risk > 44 ? 'Moderate' : 'Low Risk';
-          var hC = hype > 70 ? 'hot' : hype > 40 ? 'warn' : 'muted';
-          var lC = liqDelta >= 0 ? 'good' : 'danger';
-          var cC = topH > 45 ? 'danger' : topH > 30 ? 'warn' : 'good';
-          var cL = topH > 45 ? 'High concentration' : topH > 30 ? 'Moderate' : 'Healthy';
-          var sig = risk > 68 ? 'High risk — caution advised'
-                  : risk > 44 ? 'Moderate — monitor closely'
-                  : 'Structure looks clean — momentum building';
-          var sigC = risk > 68 ? 'danger' : risk > 44 ? 'warn' : 'good';
-
-          var ticker = shortenQuery(query);
-
-          /* update stat cards */
-          gridEl.innerHTML =
-            '<div class="scan-stat"><small>Liquidity</small><strong>$' + fmt(liq) + '</strong></div>' +
-            '<div class="scan-stat"><small>Market Cap</small><strong>$' + fmt(mcap) + '</strong></div>' +
-            '<div class="scan-stat"><small>Risk Score</small><strong class="' + rC + '">' + risk + ' / 100</strong></div>' +
-            '<div class="scan-stat"><small>Holder Concentration</small><strong class="' + cC + '">' + cL + '</strong></div>';
-
-          /* detailed terminal output */
-          resultsEl.innerHTML =
-            '<div class="screen mono" style="margin-top:14px;min-height:auto;">' +
-              '<div class="screen-scanline" aria-hidden="true"></div>' +
-              '<div class="term-section-head">▸ Token Scan — ' + ticker + '</div>' +
-              '<div class="term-row"><span class="term-label">Liquidity Δ (1h)</span><span class="term-val ' + lC + '">' + (liqDelta >= 0 ? '+' : '') + liqDelta + '%</span></div>' +
-              '<div class="term-section-head">▸ Gorktimus Risk Verdict</div>' +
-              '<div class="term-row"><span class="term-label">Risk Score</span><span class="term-val ' + rC + '">' + risk + ' / 100 — ' + rL + '</span></div>' +
-              '<div class="term-row"><span class="term-label">Top 10 holders</span><span class="term-val ' + cC + '">' + topH + '%</span></div>' +
-              '<div class="term-section-head">▸ Contract Transparency</div>' +
-              '<div class="term-row"><span class="term-label">Mint authority</span><span class="term-val ' + (mintOk ? 'good' : 'danger') + '">' + (mintOk ? 'Revoked ✓' : 'Active — risk') + '</span></div>' +
-              '<div class="term-row"><span class="term-label">Freeze authority</span><span class="term-val ' + (freezeOk ? 'good' : 'danger') + '">' + (freezeOk ? 'Revoked ✓' : 'Active — risk') + '</span></div>' +
-              '<div class="term-section-head">▸ Whale Movement</div>' +
-              '<div class="term-row"><span class="term-label">Smart wallets</span><span class="term-val hot">' + swCount + (swCount === 1 ? ' accumulating' : swCount > 0 ? ' accumulating' : ' — quiet') + '</span></div>' +
-              '<div class="term-row"><span class="term-label">Hype Score</span><span class="term-val ' + hC + '">' + hype + ' / 100</span></div>' +
-              '<div class="term-section-head">▸ Final Recommendation</div>' +
-              '<div class="term-row"><span class="term-label">Signal</span><span class="term-val ' + sigC + '">' + sig + '</span></div>' +
-            '</div>' +
-            '<div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">' +
-              '<a href="https://t.me/GorktimusPrime_bot" target="_blank" rel="noreferrer" class="btn btn-primary" style="font-size:0.88rem;padding:10px 16px;">Scan Live in Telegram →</a>' +
-              '<span style="color:var(--muted);font-size:0.84rem;">This is a preview — the live terminal runs in real time.</span>' +
-            '</div>';
-
-          btn.disabled    = false;
-          btn.textContent = 'Run Scan';
-        }, 1800);
+        fetchDex(query)
+          .then(function (dexData) {
+            var pair = bestPair(dexData);
+            if (!pair) {
+              showError('Token not found. Try a Solana contract address or a different ticker.');
+              return;
+            }
+            var mint = pair.baseToken && pair.baseToken.address;
+            var rugP = (mint && isSolAddr(mint)) ? fetchRug(mint) : Promise.resolve(null);
+            return rugP.then(function (rug) { renderResults(pair, rug); });
+          })
+          .catch(function () {
+            showError('Scan failed \u2014 check your connection or try again.');
+          });
       }
 
       btn.addEventListener('click', runScan);
