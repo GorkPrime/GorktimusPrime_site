@@ -1615,7 +1615,7 @@
       <div class="section-line"></div>
       <h2 class="section-title">Scan a token</h2>
       <p class="section-copy">
-        Preview how the intelligence layer evaluates a token by reading liquidity, concentration, market structure, and momentum quality.
+        Live token intelligence powered by DexScreener and RugCheck. Enter a contract address or ticker to pull real liquidity, risk score, holder concentration, and market structure.
       </p>
 
       <div class="scan-box">
@@ -2186,7 +2186,7 @@
       if (fillEl)  fillEl.style.width  = pct + '%';
     }());
 
-    /* ── Interactive Token Scanner ───────────────────────── */
+    /* ── Interactive Token Scanner (live data) ───────────── */
     (function () {
       var btn       = document.querySelector('.scan-btn');
       var input     = document.getElementById('scanInput');
@@ -2194,90 +2194,210 @@
       var noteEl    = document.getElementById('scanNote');
       var resultsEl = document.getElementById('scanResults');
 
-      function deterministicRandom(str, seed) {
-        var h = seed | 0;
-        for (var i = 0; i < str.length; i++) {
-          h = Math.imul(h ^ str.charCodeAt(i), 0x9e3779b9);
-          h ^= h >>> 16;
-        }
-        return Math.abs(h);
+      /* ── Helpers ──────────────────────────────────────── */
+      function esc(s) {
+        return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
       }
 
-      function fmt(n) {
-        return n.toLocaleString('en-US');
+      function fmtUsd(n) {
+        n = +n;
+        if (!n && n !== 0) return 'N/A';
+        if (n >= 1e9) return '$' + (n / 1e9).toFixed(2) + 'B';
+        if (n >= 1e6) return '$' + (n / 1e6).toFixed(2) + 'M';
+        if (n >= 1e3) return '$' + (n / 1e3).toFixed(1) + 'K';
+        return '$' + Math.round(n).toLocaleString('en-US');
       }
 
-      function shortenQuery(q) {
+      function fmtPct(n) {
+        if (n == null || isNaN(+n)) return 'N/A';
+        n = +n;
+        return (n >= 0 ? '+' : '') + n.toFixed(1) + '%';
+      }
+
+      function isSolAddr(q) {
+        return /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(q);
+      }
+
+      function shorten(q) {
         return q.length > 18 ? q.slice(0, 6) + '\u2026' + q.slice(-4) : q.toUpperCase();
       }
 
+      /* ── Risk heuristic when RugCheck is unavailable ──── */
+      function dexRisk(pair) {
+        var risk = 35;
+        var liq  = (pair.liquidity && +pair.liquidity.usd) || 0;
+        var age  = pair.pairCreatedAt ? (Date.now() - pair.pairCreatedAt) / 3600000 : 999;
+        var h1   = (pair.priceChange && +pair.priceChange.h1) || 0;
+        var tx   = (pair.txns && pair.txns.h1) || { buys: 0, sells: 0 };
+        if (liq < 5000)  risk += 40;
+        else if (liq < 20000) risk += 20;
+        else if (liq < 50000) risk += 10;
+        if (age < 0.5) risk += 20;
+        else if (age < 2) risk += 10;
+        if (h1 < -20) risk += 15;
+        else if (h1 < -10) risk += 8;
+        if (+tx.sells > +tx.buys * 2) risk += 15;
+        return Math.min(99, Math.max(10, risk));
+      }
+
+      /* ── API calls ────────────────────────────────────── */
+      function fetchDex(query) {
+        var url = isSolAddr(query)
+          ? 'https://api.dexscreener.com/latest/dex/tokens/' + encodeURIComponent(query)
+          : 'https://api.dexscreener.com/latest/dex/search?q=' + encodeURIComponent(query);
+        return fetch(url).then(function (r) {
+          if (!r.ok) throw new Error('DexScreener ' + r.status);
+          return r.json();
+        });
+      }
+
+      function fetchRug(mint) {
+        return fetch('https://api.rugcheck.xyz/v1/tokens/' + mint + '/report/summary')
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .catch(function () { return null; });
+      }
+
+      /* Pick best (highest-liquidity) Solana pair from DexScreener response */
+      function bestPair(data) {
+        var pairs = (data && data.pairs) || [];
+        var sol   = pairs.filter(function (p) { return p.chainId === 'solana'; });
+        var list  = sol.length ? sol : pairs;
+        list.sort(function (a, b) {
+          return ((b.liquidity && +b.liquidity.usd) || 0) - ((a.liquidity && +a.liquidity.usd) || 0);
+        });
+        return list[0] || null;
+      }
+
+      /* Parse RugCheck summary into normalised fields */
+      function parseRug(rug, pair) {
+        if (!rug) return { risk: dexRisk(pair), mintOk: null, freezeOk: null, topHPct: null };
+        var risk;
+        if (rug.score_normalised != null) risk = Math.min(100, Math.round(+rug.score_normalised));
+        else if (rug.score != null)       risk = Math.min(100, Math.round(+rug.score / 10));
+        else                              risk = dexRisk(pair);
+        var holders = rug.topHolders || [];
+        var pctScale = holders.some(function (h) { return (h.pct || 0) > 1; }) ? 1 : 100;
+        var topHPct  = holders.slice(0, 10).reduce(function (s, h) { return s + (h.pct || 0) * pctScale; }, 0);
+        return {
+          risk:    risk,
+          mintOk:  rug.mintAuthority  == null,
+          freezeOk: rug.freezeAuthority == null,
+          topHPct: topHPct
+        };
+      }
+
+      /* ── UI helpers ───────────────────────────────────── */
+      function showError(msg) {
+        resultsEl.innerHTML = '<div class="scan-note" style="color:var(--danger);">' + esc(msg) + '</div>';
+        noteEl.style.display = '';
+        btn.disabled = false;
+        btn.textContent = 'Run Scan';
+      }
+
+      function renderResults(pair, rugData) {
+        var liq    = (pair.liquidity && +pair.liquidity.usd) || 0;
+        var mcap   = +(pair.fdv || pair.marketCap || 0);
+        var h1     = (pair.priceChange && +pair.priceChange.h1) || 0;
+        var vol24  = (pair.volume && +pair.volume.h24) || 0;
+        var txH1   = (pair.txns && pair.txns.h1) || { buys: 0, sells: 0 };
+        var ticker = esc((pair.baseToken && pair.baseToken.symbol) || '???');
+        var name   = esc((pair.baseToken && pair.baseToken.name)   || ticker);
+        var chain  = esc(pair.chainId || 'unknown');
+        var ageH   = pair.pairCreatedAt ? (Date.now() - pair.pairCreatedAt) / 3600000 : null;
+
+        var p       = parseRug(rugData, pair);
+        var riskRaw = p.risk;
+        var rC = riskRaw > 68 ? 'danger' : riskRaw > 44 ? 'warn' : 'good';
+        var rL = riskRaw > 68 ? 'High Risk' : riskRaw > 44 ? 'Moderate' : 'Low Risk';
+        var lC = h1 >= 0 ? 'good' : 'danger';
+        var cC = p.topHPct != null ? (p.topHPct > 45 ? 'danger' : p.topHPct > 25 ? 'warn' : 'good') : 'muted';
+        var cL = p.topHPct != null ? (p.topHPct > 45 ? 'High concentration' : p.topHPct > 25 ? 'Moderate' : 'Healthy') : 'N/A';
+
+        var hype = vol24 && liq ? Math.min(99, Math.round((vol24 / liq) * 40)) : 0;
+        var hC   = hype > 70 ? 'hot' : hype > 40 ? 'warn' : 'muted';
+
+        var sigC, sig;
+        if (riskRaw > 68)      { sigC = 'danger'; sig = 'High risk \u2014 caution advised'; }
+        else if (riskRaw > 44) { sigC = 'warn';   sig = 'Moderate \u2014 monitor closely'; }
+        else if (h1 > 5)       { sigC = 'good';   sig = 'Structure clean \u2014 momentum building'; }
+        else                   { sigC = 'good';   sig = 'Low risk \u2014 watch for volume confirmation'; }
+
+        var mintVal = p.mintOk === null
+          ? '<span class="term-val muted">N/A</span>'
+          : p.mintOk
+            ? '<span class="term-val good">Revoked \u2713</span>'
+            : '<span class="term-val danger">Active \u2014 risk</span>';
+        var frzVal  = p.freezeOk === null
+          ? '<span class="term-val muted">N/A</span>'
+          : p.freezeOk
+            ? '<span class="term-val good">Revoked \u2713</span>'
+            : '<span class="term-val danger">Active \u2014 risk</span>';
+
+        var ageStr = ageH !== null
+          ? esc(ageH < 1 ? Math.round(ageH * 60) + ' min' : ageH < 24 ? ageH.toFixed(1) + ' h' : Math.round(ageH / 24) + ' d')
+          : null;
+
+        /* stat cards */
+        gridEl.innerHTML =
+          '<div class="scan-stat"><small>Liquidity</small><strong>' + (liq ? fmtUsd(liq) : 'N/A') + '</strong></div>' +
+          '<div class="scan-stat"><small>Market Cap</small><strong>'  + (mcap ? fmtUsd(mcap) : 'N/A') + '</strong></div>' +
+          '<div class="scan-stat"><small>Risk Score</small><strong class="' + rC + '">' + riskRaw + ' / 100</strong></div>' +
+          '<div class="scan-stat"><small>Holder Concentration</small><strong class="' + cC + '">' + cL + '</strong></div>';
+
+        /* terminal detail */
+        resultsEl.innerHTML =
+          '<div class="screen mono" style="margin-top:14px;min-height:auto;">' +
+            '<div class="screen-scanline" aria-hidden="true"></div>' +
+            '<div class="term-section-head">\u25b8 Token \u2014 ' + name + ' ($' + ticker + ')</div>' +
+            (ageStr ? '<div class="term-row"><span class="term-label">Pair Age</span><span class="term-val ' + (ageH < 1 ? 'hot' : 'muted') + '">' + ageStr + '</span></div>' : '') +
+            '<div class="term-row"><span class="term-label">Chain</span><span class="term-val muted">' + chain + '</span></div>' +
+            '<div class="term-row"><span class="term-label">Price \u0394 (1h)</span><span class="term-val ' + lC + '">' + fmtPct(h1) + '</span></div>' +
+            '<div class="term-row"><span class="term-label">Buys / Sells (1h)</span><span class="term-val muted">' + (+txH1.buys || 0) + '\u2191 / ' + (+txH1.sells || 0) + '\u2193</span></div>' +
+            '<div class="term-section-head">\u25b8 Gorktimus Risk Verdict</div>' +
+            '<div class="term-row"><span class="term-label">Risk Score</span><span class="term-val ' + rC + '">' + riskRaw + ' / 100 \u2014 ' + rL + '</span></div>' +
+            '<div class="term-row"><span class="term-label">Top 10 Holders</span><span class="term-val ' + cC + '">' + (p.topHPct != null ? p.topHPct.toFixed(1) + '%' : 'N/A') + '</span></div>' +
+            '<div class="term-section-head">\u25b8 Contract Transparency</div>' +
+            '<div class="term-row"><span class="term-label">Mint authority</span>' + mintVal + '</div>' +
+            '<div class="term-row"><span class="term-label">Freeze authority</span>' + frzVal + '</div>' +
+            '<div class="term-section-head">\u25b8 Volume & Momentum</div>' +
+            '<div class="term-row"><span class="term-label">Volume 24h</span><span class="term-val muted">' + (vol24 ? fmtUsd(vol24) : 'N/A') + '</span></div>' +
+            '<div class="term-row"><span class="term-label">Hype Score</span><span class="term-val ' + hC + '">' + hype + ' / 100</span></div>' +
+            '<div class="term-section-head">\u25b8 Final Recommendation</div>' +
+            '<div class="term-row"><span class="term-label">Signal</span><span class="term-val ' + sigC + '">' + sig + '</span></div>' +
+          '</div>' +
+          '<div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">' +
+            '<a href="https://t.me/GorktimusPrime_bot" target="_blank" rel="noreferrer" class="btn btn-primary" style="font-size:0.88rem;padding:10px 16px;">Scan Live in Telegram \u2192</a>' +
+            '<span style="color:var(--muted);font-size:0.84rem;">Live data: DexScreener' + (rugData ? ' + RugCheck' : '') + '.</span>' +
+          '</div>';
+
+        btn.disabled = false;
+        btn.textContent = 'Run Scan';
+      }
+
+      /* ── Main scan flow ───────────────────────────────── */
       function runScan() {
         var query = input.value.trim();
         if (!query) { input.focus(); return; }
 
-        btn.disabled    = true;
+        btn.disabled = true;
         btn.textContent = 'Scanning\u2026';
         noteEl.style.display = 'none';
-        resultsEl.innerHTML  = '<div class="scan-note" style="color:var(--glow2);padding:6px 0 2px;">\u27f3 Running intelligence scan on ' + shortenQuery(query) + ' \u2026</div>';
+        resultsEl.innerHTML = '<div class="scan-note" style="color:var(--glow2);padding:6px 0 2px;">\u27f3 Fetching live data for ' + esc(shorten(query)) + ' \u2026</div>';
 
-        setTimeout(function () {
-          var r = deterministicRandom;
-          var liq       = 8000  + r(query, 1) % 92000;
-          var mcap      = liq   * (2 + r(query, 2) % 9);
-          var risk      = 25    + r(query, 3) % 72;
-          var hype      = 15    + r(query, 4) % 85;
-          var topH      = 12    + r(query, 5) % 58;
-          var liqDelta  = -25   + r(query, 6) % 70;
-          var swCount   = r(query, 7) % 6;
-          var mintOk    = (r(query, 8) % 3) !== 0;
-          var freezeOk  = (r(query, 9) % 3) !== 0;
-
-          var rC = risk > 68 ? 'danger' : risk > 44 ? 'warn' : 'good';
-          var rL = risk > 68 ? 'High Risk' : risk > 44 ? 'Moderate' : 'Low Risk';
-          var hC = hype > 70 ? 'hot' : hype > 40 ? 'warn' : 'muted';
-          var lC = liqDelta >= 0 ? 'good' : 'danger';
-          var cC = topH > 45 ? 'danger' : topH > 30 ? 'warn' : 'good';
-          var cL = topH > 45 ? 'High concentration' : topH > 30 ? 'Moderate' : 'Healthy';
-          var sig = risk > 68 ? 'High risk \u2014 caution advised'
-                  : risk > 44 ? 'Moderate \u2014 monitor closely'
-                  : 'Structure looks clean \u2014 momentum building';
-          var sigC = risk > 68 ? 'danger' : risk > 44 ? 'warn' : 'good';
-
-          var ticker = shortenQuery(query);
-
-          /* update stat cards */
-          gridEl.innerHTML =
-            '<div class="scan-stat"><small>Liquidity</small><strong>$' + fmt(liq) + '</strong></div>' +
-            '<div class="scan-stat"><small>Market Cap</small><strong>$' + fmt(mcap) + '</strong></div>' +
-            '<div class="scan-stat"><small>Risk Score</small><strong class="' + rC + '">' + risk + ' / 100</strong></div>' +
-            '<div class="scan-stat"><small>Holder Concentration</small><strong class="' + cC + '">' + cL + '</strong></div>';
-
-          /* detailed terminal output */
-          resultsEl.innerHTML =
-            '<div class="screen mono" style="margin-top:14px;min-height:auto;">' +
-              '<div class="screen-scanline" aria-hidden="true"></div>' +
-              '<div class="term-section-head">\u25b8 Token Scan \u2014 ' + ticker + '</div>' +
-              '<div class="term-row"><span class="term-label">Liquidity \u0394 (1h)</span><span class="term-val ' + lC + '">' + (liqDelta >= 0 ? '+' : '') + liqDelta + '%</span></div>' +
-              '<div class="term-section-head">\u25b8 Gorktimus Risk Verdict</div>' +
-              '<div class="term-row"><span class="term-label">Risk Score</span><span class="term-val ' + rC + '">' + risk + ' / 100 \u2014 ' + rL + '</span></div>' +
-              '<div class="term-row"><span class="term-label">Top 10 holders</span><span class="term-val ' + cC + '">' + topH + '%</span></div>' +
-              '<div class="term-section-head">\u25b8 Contract Transparency</div>' +
-              '<div class="term-row"><span class="term-label">Mint authority</span><span class="term-val ' + (mintOk ? 'good' : 'danger') + '">' + (mintOk ? 'Revoked \u2713' : 'Active \u2014 risk') + '</span></div>' +
-              '<div class="term-row"><span class="term-label">Freeze authority</span><span class="term-val ' + (freezeOk ? 'good' : 'danger') + '">' + (freezeOk ? 'Revoked \u2713' : 'Active \u2014 risk') + '</span></div>' +
-              '<div class="term-section-head">\u25b8 Whale Movement</div>' +
-              '<div class="term-row"><span class="term-label">Smart wallets</span><span class="term-val hot">' + swCount + (swCount === 1 ? ' accumulating' : swCount > 0 ? ' accumulating' : ' \u2014 quiet') + '</span></div>' +
-              '<div class="term-row"><span class="term-label">Hype Score</span><span class="term-val ' + hC + '">' + hype + ' / 100</span></div>' +
-              '<div class="term-section-head">\u25b8 Final Recommendation</div>' +
-              '<div class="term-row"><span class="term-label">Signal</span><span class="term-val ' + sigC + '">' + sig + '</span></div>' +
-            '</div>' +
-            '<div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">' +
-              '<a href="https://t.me/GorktimusPrime_bot" target="_blank" rel="noreferrer" class="btn btn-primary" style="font-size:0.88rem;padding:10px 16px;">Scan Live in Telegram \u2192</a>' +
-              '<span style="color:var(--muted);font-size:0.84rem;">This is a preview \u2014 the live terminal runs in real time.</span>' +
-            '</div>';
-
-          btn.disabled    = false;
-          btn.textContent = 'Run Scan';
-        }, 1800);
+        fetchDex(query)
+          .then(function (dexData) {
+            var pair = bestPair(dexData);
+            if (!pair) {
+              showError('Token not found. Try a Solana contract address or a different ticker.');
+              return;
+            }
+            var mint = pair.baseToken && pair.baseToken.address;
+            var rugP = (mint && isSolAddr(mint)) ? fetchRug(mint) : Promise.resolve(null);
+            return rugP.then(function (rug) { renderResults(pair, rug); });
+          })
+          .catch(function () {
+            showError('Scan failed \u2014 check your connection or try again.');
+          });
       }
 
       btn.addEventListener('click', runScan);
